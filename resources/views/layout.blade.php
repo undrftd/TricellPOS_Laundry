@@ -22,6 +22,7 @@
   <script src="{{ asset('imports/js/jquery-ui.js') }}"></script>
   <script src="{{ asset('imports/js/Chart.bundle.js') }}"></script>
   <script type="text/javascript" src="{{ asset('imports/js/daterangepicker.min.js') }}"></script>
+  <script src="{{ asset('imports/js/jquery.countdown.js') }}"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -45,9 +46,11 @@
             <a class="dropdown-item" href="/logs/sales">Sales</a>
             <a class="dropdown-item" href="/logs/reload">Reload</a>
       </li>
-      
      <li class="nav-item">
-       <a class="nav-link {{ Request::segment(1)=='inventory' ? 'active' : '' }}" href="/inventory">INVENTORY</a>
+       <a class="nav-link {{ Request::segment(1)=='queue' ? 'active' : '' }}" href="/queue">QUEUEING</a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link {{ Request::segment(1)=='services' ? 'active' : '' }}" href="/services/washers">SERVICES</a>
      </li>
      <li class="nav-item">
        <a class="nav-link {{ Request::segment(1)=='accounts' ? 'active' : '' }}" href="/accounts/members">ACCOUNTS</a>

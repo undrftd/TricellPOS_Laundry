@@ -28,6 +28,12 @@ Route::group(['middleware' => ['admin', 'timeout']], function () {
    	Route::post('sales/guest_cashpayment', 'Admin\PointofSaleController@guest_cashpayment');
    	Route::post('sales/member_reload', 'Admin\PointofSaleController@reload');
 
+   	//Queueing
+   	Route::get('queue', 'Admin\QueueController@index');
+   	Route::post('queue/view_status', 'Admin\QueueController@viewstatus');
+   	Route::post('queue/showdetails', 'Admin\QueueController@showdetails');
+   	Route::post('queue/switch', 'Admin\QueueController@switch');
+
 	//Sales Logs
 	Route::get('logs/sales', 'Admin\SalesLogsController@index');
 	Route::get('logs/sales/showdetails/{id}', 'Admin\SalesLogsController@showdetails');
@@ -42,16 +48,12 @@ Route::group(['middleware' => ['admin', 'timeout']], function () {
 	Route::post('logs/reload/delete_reload', 'Admin\ReloadLogsController@destroy');
 	Route::get('/logs/reload/export', 'Admin\ReloadLogsController@export');
 
-	//Inventory
-	Route::get('inventory', 'Admin\InventoryController@index');
-	Route::get('inventory/search', 'Admin\InventoryController@search');
-	Route::get('inventory/search_healthy', 'Admin\InventoryController@search_healthy');
-	Route::get('inventory/search_low', 'Admin\InventoryController@search_low');
-	Route::post('inventory/update_product', 'Admin\InventoryController@edit');
-	Route::post('inventory/delete_product', 'Admin\InventoryController@destroy');
-	Route::post('inventory/add_product', 'Admin\InventoryController@create');
-	Route::get('inventory/low_stocks', 'Admin\InventoryController@lowstocks');
-	Route::get('inventory/healthy_stocks', 'Admin\InventoryController@healthystocks');
+	//Services
+	Route::get('services/washers', 'Admin\ServicesController@index');
+	Route::get('services/dryers', 'Admin\ServicesController@dryer');
+	Route::post('services/update_service', 'Admin\ServicesController@edit');
+	Route::get('inventory/low_stocks', 'Admin\ServicesController@lowstocks');
+	Route::get('inventory/healthy_stocks', 'Admin\ServicesController@healthystocks');
 	
 	//Accounts - Member
 	Route::get('accounts/members', 'Admin\MemberAccountsController@index');

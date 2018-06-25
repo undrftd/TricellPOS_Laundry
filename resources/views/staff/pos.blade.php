@@ -350,7 +350,7 @@ SALE
         <div id="mirror-pos" hidden="hidden">
           @foreach($allitems as $item)
             <div class="col-lg-12">
-              <div class="btn btn-sm btn-info full mirror-pos-button" data-id="{{$item->product_id}}" data-description="{{$item->product_name}}" data-price="{{$item->price}}" data-memprice="{{$item->member_price}}" data-qty="{{$item->product_qty}}">{{str_limit($item->product_name,10)}}</div>
+              <div class="btn btn-sm btn-info full mirror-pos-button" data-id="{{$item->product_id}}" data-description="{{$item->product_name}}" data-price="{{$item->price}}" data-memprice="{{$item->member_price}}">{{str_limit($item->product_name,10)}}</div>
             </div>
           @endforeach
         </div>
@@ -483,7 +483,7 @@ SALE
       if(checkContent == 0 && !$(this).hasClass('disabled'))
       {
       var str_item = '<tr class="itemrow" id="'+ id +'"><td class="description append-td"><b>' + description + '</b></td>' +
-          '<td class="append-td"><input type="text" class="quantity" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" id="qty_input" value="1" maxlength="6"></td>' +
+          '<td class="append-td"><input type="text" class="quantity" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" id="qty_input" value="1" maxlength="3"></td>' +
           '<td class="itemprice append-td">' + price + '</td>' +
           '<td class="itemsubtotal append-td">' + price + '</td>' +
           '<td class="append-td-2"><button type="submit" class="btn delete"><i class="material-icons" id="clear-btn">clear</i></button></td></tr>';
@@ -562,24 +562,24 @@ SALE
     var desc = whichtr.find($('.description')).text();
     var dataqty = $('#mirror-pos').find($('[data-description="'+ desc +'"]')).attr('data-qty');
 
-    if(parseFloat($(this).val()) > dataqty)
-    {
-      $(this).val(dataqty);
-      var newqty = $(this).val()
-      subtotal = newqty * price;
+    // if(parseFloat($(this).val()) > dataqty)
+    // {
+    //   $(this).val(dataqty);
+    //   var newqty = $(this).val()
+    //   subtotal = newqty * price;
       
-      whichtr.find($('.itemsubtotal')).text(subtotal.toFixed(2));
-      update_total();
-      compute_discount();
-    }
-    else
-    {
+    //   whichtr.find($('.itemsubtotal')).text(subtotal.toFixed(2));
+    //   update_total();
+    //   compute_discount();
+    // }
+    // else
+    // {
       subtotal = qty * price;
 
       whichtr.find($('.itemsubtotal')).text(subtotal.toFixed(2));
       update_total();
       compute_discount();
-    }
+    // }
   });
 
   $(document).ready(function(){

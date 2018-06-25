@@ -27,18 +27,10 @@ class PointofSaleController extends Controller
     public function index()
     {
         $allitems = Product::orderBy('product_name', 'asc')->get();
-    	$items = Product::orderBy('product_name', 'asc')->simplepaginate(32);
+    	$items = Product::orderBy('product_name', 'asc')->get();
         $vat = DB::table('profile')->select('vat')->where('id', 1)->first();
-        $lowstock = DB::table('profile')->select('low_stock')->where('id', 1)->first();
         $discounts = Discount::all();
-    	return view('admin.pos')->with(['items' => $items, 'allitems' => $allitems, 'vat' => $vat,'lowstock' => $lowstock, 'discounts' => $discounts]);
-    }
-
-    public function buttonload()
-    {
-        $items = Product::orderBy('product_name', 'asc')->simplepaginate(32);
-        $lowstock = DB::table('profile')->select('low_stock')->where('id', 1)->first();
-        return view('admin.posbuttons')->with(['items' => $items, 'lowstock' => $lowstock])->render();
+    	return view('admin.pos')->with(['items' => $items, 'allitems' => $allitems, 'vat' => $vat, 'discounts' => $discounts]);
     }
 
     public function member_autocomplete(Request $request)
@@ -84,7 +76,6 @@ class PointofSaleController extends Controller
         for($i= 0; $i < $count; $i++){
             $y=0;
             $product = Product::find($itemsBought[$i][$y]);
-            $product->product_qty =  $product->product_qty - $itemsBought[$i][++$y];
             $product->save();
         }
     }
@@ -120,7 +111,6 @@ class PointofSaleController extends Controller
         for($i= 0; $i < $count; $i++){
             $y=0;
             $product = Product::find($itemsBought[$i][$y]);
-            $product->product_qty =  $product->product_qty - $itemsBought[$i][++$y];
             $product->save();
         }
     }
@@ -160,7 +150,6 @@ class PointofSaleController extends Controller
         for($i= 0; $i < $count; $i++){
             $y=0;
             $product = Product::find($itemsBought[$i][$y]);
-            $product->product_qty =  $product->product_qty - $itemsBought[$i][++$y];
             $product->save();
         }
     }

@@ -20,7 +20,7 @@
 
 <div class ="container"><!---first cont div-->
   <div class ="col-md-8 col-md-offset-2">
-        <p class="text-center logo_hp">PlusPoints</p>
+        <p class="text-center logo_hp">TricellPOS</p>
 <!---<div class="row">-->
   <div class="col-md-8 col-md-offset-2">
   <form action="/verify" method="post" id="submit_form">

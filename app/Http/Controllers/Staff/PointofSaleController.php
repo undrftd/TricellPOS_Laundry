@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 
+
+use Auth;
 use App\User;
 use App\Guest;
 use App\Balance;
@@ -25,18 +27,10 @@ class PointofSaleController extends Controller
     public function index()
     {
         $allitems = Product::orderBy('product_name', 'asc')->get();
-    	$items = Product::orderBy('product_name', 'asc')->simplepaginate(32);
+        $items = Product::orderBy('product_name', 'asc')->get();
         $vat = DB::table('profile')->select('vat')->where('id', 1)->first();
-        $lowstock = DB::table('profile')->select('low_stock')->where('id', 1)->first();
         $discounts = Discount::all();
-    	return view('staff.pos')->with(['items' => $items, 'allitems' => $allitems, 'vat' => $vat,'lowstock' => $lowstock, 'discounts' => $discounts]);
-    }
-
-    public function buttonload()
-    {
-        $items = Product::orderBy('product_name', 'asc')->simplepaginate(32);
-        $lowstock = DB::table('profile')->select('low_stock')->where('id', 1)->first();
-        return view('staff.posbuttons')->with(['items' => $items, 'lowstock' => $lowstock])->render();
+        return view('staff.pos')->with(['items' => $items, 'allitems' => $allitems, 'vat' => $vat, 'discounts' => $discounts]);
     }
 
     public function member_autocomplete(Request $request)
@@ -62,6 +56,7 @@ class PointofSaleController extends Controller
         $sale->change_amount = $request->change_amount;
         $sale->payment_mode = 'cash';
         $sale->vat = $request->vat;
+        $sale->staff_name = Auth::user()->id;
         $sale->save();
 
         $itemsBought = $request->itemsbought;
@@ -81,7 +76,6 @@ class PointofSaleController extends Controller
         for($i= 0; $i < $count; $i++){
             $y=0;
             $product = Product::find($itemsBought[$i][$y]);
-            $product->product_qty =  $product->product_qty - $itemsBought[$i][++$y];
             $product->save();
         }
     }
@@ -97,6 +91,7 @@ class PointofSaleController extends Controller
         $sale->change_amount = $request->change_amount;
         $sale->payment_mode = 'cash';
         $sale->vat = $request->vat;
+        $sale->staff_name = Auth::user()->id;   
         $sale->save();
 
         $itemsBought = $request->itemsbought;
@@ -108,7 +103,7 @@ class PointofSaleController extends Controller
                 'sales_id' => $sale->id,
                 'product_id' => $itemsBought[$i][$y],
                 'quantity' => $itemsBought[$i][++$y],
-                'subtotal' => $itemsBought[$i][++$y],
+                'subtotal' => $itemsBought[$i][++$y] * $itemsBought[$i][--$y],
                 ];
             }
         Sales_details::insert($sales_details);
@@ -116,7 +111,6 @@ class PointofSaleController extends Controller
         for($i= 0; $i < $count; $i++){
             $y=0;
             $product = Product::find($itemsBought[$i][$y]);
-            $product->product_qty =  $product->product_qty - $itemsBought[$i][++$y];
             $product->save();
         }
     }
@@ -132,6 +126,7 @@ class PointofSaleController extends Controller
         $sale->change_amount = 0;
         $sale->payment_mode = 'card load';
         $sale->vat = $request->vat;
+        $sale->staff_name = Auth::user()->id;   
         $sale->save();
 
         $itemsBought = $request->itemsbought;
@@ -147,7 +142,7 @@ class PointofSaleController extends Controller
                 'sales_id' => $sale->id,
                 'product_id' => $itemsBought[$i][$y],
                 'quantity' => $itemsBought[$i][++$y],
-                'subtotal' => $itemsBought[$i][++$y],
+                'subtotal' => $itemsBought[$i][++$y] * $itemsBought[$i][--$y],
                 ];
             }
         Sales_details::insert($sales_details);
@@ -155,7 +150,6 @@ class PointofSaleController extends Controller
         for($i= 0; $i < $count; $i++){
             $y=0;
             $product = Product::find($itemsBought[$i][$y]);
-            $product->product_qty =  $product->product_qty - $itemsBought[$i][++$y];
             $product->save();
         }
     }
@@ -173,6 +167,7 @@ class PointofSaleController extends Controller
         $member_reload->amount_due = $request->reload_amount;
         $member_reload->amount_paid = $request->payment_amount;
         $member_reload->change_amount = $request->change_amount;
+        $member_reload->staff_name = Auth::user()->id;   
         $member_reload->save();
 
         return $total_load;

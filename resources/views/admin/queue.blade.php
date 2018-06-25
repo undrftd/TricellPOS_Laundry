@@ -1,0 +1,197 @@
+@extends('layout')
+
+@section('title')
+QUEUEING
+@endsection
+
+@section('css')
+{{ asset('imports/css/queue.css') }}
+@endsection
+
+@section('content')
+</br>
+<div class="container">
+<!---title inventory-->
+<h3 class="title">Queue</h3>
+</br>
+<hr>
+
+<!---end of title inventory-->
+<!--second row add item button and search bar--->
+<div class="row">
+    <div class="col-md-10"></div>
+   <div class="col-md-2">
+    <button type="button" class="btn btn-outline-info view-btn">
+      View Status
+    </button>
+  </div>
+ </div> <!----end of second row--->
+ <!---table start---->
+    <table class="table table-hover">
+
+  @csrf
+      <thead class ="th_css">
+        <tr>
+      		  <th scope="col">Queue No.</th>
+            <th scope="col">Customer Name</th>
+      		  <th scope="col">Switch</th>   
+        </tr>
+      </thead>
+      <tbody class="td_class">
+        @foreach($queue as $queue)
+        <tr>
+          <th scope="row">{{$loop->iteration}}</th>
+          <td>
+          @if($queue->guest_id != 0)
+            {{ $queue->guest->customer_name }}
+          @else
+            {{ $queue->user->firstname . " " . $queue->user->lastname}}  
+          @endif
+          </td>
+          <td><button type="button" class="btn btn-success switch-btn" data-id="{{$queue->id}}"><i class="material-icons">
+power_settings_new
+</i></button>
+          </td>
+        </tr>
+        @endforeach
+
+      </tbody>
+    </table>
+
+ <!----start of modal for add item---->
+    <div class="modal fade view-status" tabindex="-1" role="dialog">
+     <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">Status</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+        <div class="modal-body" id="viewstatus">
+          
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-close-modal" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!----end of modal---->
+	 <!----start of modal for add item---->
+    <div class="modal fade switch-modal" tabindex="-1" role="dialog">
+     <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">Switch</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+        <div class="modal-body mx-auto" id="detailsmodal">
+      
+		    </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-close-modal" data-dismiss="modal">Close</button>
+        </div>
+   
+    </div>
+    </div>
+
+
+</div>
+
+<script type="text/javascript">
+  $(document).on('click', '.switch-btn', function() {
+    $.ajax({
+    type: 'POST',
+    url: '/queue/showdetails',
+    data: {
+            '_token': $('input[name=_token]').val(),
+            'sales_id': $(this).attr('data-id'),
+          },
+    success: function(data)
+    {
+      $('.switch-modal').modal('show');
+      $('#detailsmodal').html(data);
+    },
+    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+      console.log(JSON.stringify(jqXHR));
+      console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    }
+  })
+
+  });
+
+  $(document).on('click', '.switch__toggle', function() {
+
+    var switches = $('.service').find($('[data-id="'+ $(this).attr('data-id') +'"]'));
+    var attr = $(this).attr('checked');
+
+
+    // if (typeof attr !== typeof undefined && attr !== false) {
+    //   // Element has this attribute
+    //      console.log(1);
+    //   switches.removeAttr('checked');
+    // }
+    // else
+    // {
+    //      console.log(2);
+    //   switches.attr('checked', true);
+    // }
+    
+    $.ajax({
+    type: 'POST',
+    url: '/queue/switch',
+    data: {
+            '_token': $('input[name=_token]').val(),
+            'sales_id': $(this).attr('data-sales-id'),
+            'product_id': $(this).attr('data-id'),
+          },
+    success: function(data)
+    {
+      console.log(data);
+    },
+    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+      console.log(JSON.stringify(jqXHR));
+      console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    }
+  })
+
+  });
+
+  $(document).on('click', '.view-btn', function() {
+    $.ajax({
+    type: 'POST',
+    url: '/queue/view_status',
+    data: {
+            '_token': $('input[name=_token]').val(),
+            'product_id': $(this).attr('data-id'),
+          },
+    success: function(data)
+    {
+      $('.view-status').modal('show');
+      $('#viewstatus').html(data);
+
+      $('#timer1').countdown('2018-06-25 12:30:01', function(event) {
+        $(this).html(event.strftime('%M:%S'));
+      });
+    },
+    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+      console.log(JSON.stringify(jqXHR));
+      console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+    }
+  })
+
+  });
+
+  $(document).ready(function(){
+
+  })
+</script>
+@endsection
