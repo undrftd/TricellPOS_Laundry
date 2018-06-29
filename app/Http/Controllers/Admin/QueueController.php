@@ -21,8 +21,8 @@ class QueueController extends Controller
     {
         $now = Carbon::now()->format('Y-m-d');
         
-        $queue = Sale::where(DB::raw("(DATE_FORMAT(transaction_date,'%Y-%m-%d'))"), '=', $now)->orderBy('transaction_date', 'asc')->paginate(7);
-        return view('admin.queue')->with(['queue' => $queue]);
+        $queues = Sale::where(DB::raw("(DATE_FORMAT(transaction_date,'%Y-%m-%d'))"), '=', $now)->orderBy('transaction_date', 'asc')->paginate(7);
+        return view('admin.queue')->with(['queues' => $queues]);
     }
 
     public function viewstatus()
@@ -37,37 +37,41 @@ class QueueController extends Controller
         $sales_id = $request->sales_id;
         $washers = Sales_details::with('product')->where('sales_id', $sales_id)->where('product_id', '<=', 8)->orderBy('product_id', 'asc')->get();
         $dryers = Sales_details::with('product')->where('sales_id', $sales_id)->where('product_id', '>', 8)->orderBy('product_id', 'asc')->get();
-
-        return view('admin.queuedetails')->with(['washers' => $washers, 'dryers' => $dryers]);
+        $expire = Carbon::now()->addMinutes(10)->toDateTimeString();
+        
+       return view('admin.queuedetails')->with(['washers' => $washers, 'dryers' => $dryers, 'expire'=> $expire ]);
     }
 
     public function switch(Request $request)
     {
-        // $details = Product::find($request->product_id);
-        // if($details->switch == 0)
-        // {
-        //    $details->switch = 1; 
-        //     // $product->sales->finish_date = Carbon::now()->addMinutes(10);
-        // }
-        // else if($details->switch == 1)
-        // {
-        //     $details->switch = 0;  
-        // }
+        $details = Sales_details::where('id', $request->id)->where('sales_id', $request->sales_id)->first();
+        $profile = DB::table('profile')->select('*')->where('id', 1)->first();
 
-        // $details->save();
-
-        $details = Sales_details::where('sales_id', $request->sales_id)->where('product_id', $request->product_id)->first();
-        // dd($product->salesdetails->finish_date);
         if($details->product->switch == 0)
         {
-           $details->product->switch = 1; 
-           $details->finish_date = Carbon::now()->addMinutes(10);
+            $details->product->switch = 1;
+            $details->product->used_by = $request->sales_id;
+            $details->switch = 1;  
+            $details->used = $details->used +1;
+            
+            if($details->product_id <= 8)
+            {
+                $details->product->finish_date = Carbon::now()->addMinutes($profile->washer_timer);
+            }
+            else
+            {
+                $details->product->finish_date = Carbon::now()->addMinutes($profile->dryer_timer);
+            }
         }
         else if($details->product->switch == 1)
         {
-            $details->product->switch = 0;  
+            $details->product->switch = 0; 
+            $details->product->used_by = 0; 
+            $details->switch = 0; 
         }
         $details->save();
         $details->product->save();
+
+        return Response::json(array('used' => $details->used, 'quantity' => $details->quantity));
     }
 }

@@ -97,9 +97,11 @@ Route::group(['middleware' => ['admin', 'timeout']], function () {
    	Route::post('/update_account', 'Admin\AccountController@edit');
 
    	//Timesheet
-   	Route::get('/timesheet', 'Admin\TimesheetController@index');
-   	Route::get('/timesheet/filter', 'Admin\TimesheetController@filter');
-   	Route::get('/timesheet/export', 'Admin\TimesheetController@export');
+   	Route::get('timesheet', 'Admin\TimesheetController@index');
+   	Route::post('timesheet/time_in', 'Admin\TimesheetController@time_in');
+   	Route::get('timesheet/time_out', 'Admin\TimesheetController@time_out');
+   	Route::get('timesheet/filter', 'Admin\TimesheetController@filter');
+   	Route::get('timesheet/export', 'Admin\TimesheetController@export');
    	
 });
 

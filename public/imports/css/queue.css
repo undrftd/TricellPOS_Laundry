@@ -30,6 +30,24 @@ body{
 
     text-align: center;
 }
+.page-link {
+    color: #2d3f54 !important;
+}
+
+.page-link:hover {
+
+    color: #fcfcfc !important;
+    background-color: #2d3f54 !important;
+    border-color: #2d3f54 !important;
+}
+
+.page-item.active .page-link {
+
+    color: #fcfcfc !important;
+    background-color: #2d3f54 !important;
+    border-color: #2d3f54 !important;
+
+}
 
 
 
@@ -77,6 +95,10 @@ font-size: 18px;
 }
 .timer{
   text-align: center !important;
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
 }
 
 /*.laundry_button_function{

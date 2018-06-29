@@ -8,8 +8,10 @@ use App\Product;
 use Response;
 use Validator;
 use DB;
-use Request;
+use Auth;
+use Carbon\Carbon;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 
@@ -19,13 +21,42 @@ class TimesheetController extends Controller
     public function index()
     {
         $employees = Timesheet::orderBy('id', 'desc')->paginate(7);
-        return view('admin.timesheet')->with('employees', $employees); //->with('products', $products);
+        $now = Carbon::now()->format('Y-m-d');
+        $time_in = Timesheet::where('user_id', Auth::user()->id)->where(DB::raw("(DATE_FORMAT(time_in,'%Y-%m-%d'))"), '=', $now)->whereNotNull('time_in')->whereNull('time_out')->get();
+        $time_out = Timesheet::where('user_id', Auth::user()->id)->whereNull('time_out')->get();
+
+        return view('admin.timesheet')->with(['employees' => $employees, 'time_in' => $time_in, 'time_out' => $time_out]); 
+    }
+
+    public function time_in(Request $request)
+    {
+    	if($request->id == Auth::user()->card_number)
+    	{
+	        $timesheet = new Timesheet;
+	        $timesheet->user_id = Auth::user()->id;
+	        $timesheet->time_in = Carbon::now();
+	        $timesheet->save();	
+	    }
+	    else
+	    {
+	    	$error = 'The ID you have entered doesn\'t match with your account.';
+	    	return Response::json(array('error' => $error));
+	    }
+    }
+
+    public function time_out()
+    {
+    	if (Auth::check()) 
+        {
+            $timesheet = Timesheet::where('user_id', Auth::user()->id)->whereNull('time_out')->first();
+            $timesheet->time_out = Carbon::now();
+            $timesheet->save();
+        }
     }
 
     public function filter(\Illuminate\Http\Request $request)
     {
         $daterange = array_map('trim', explode('-', $request->date_filter));
-        //dd(count($daterange));
         
         if(count($daterange) <= 1)
         {
@@ -33,6 +64,10 @@ class TimesheetController extends Controller
         }
         else
         {
+            $now = Carbon::now()->format('Y-m-d');
+		    $time_in = Timesheet::where('user_id', Auth::user()->id)->where(DB::raw("(DATE_FORMAT(time_in,'%Y-%m-%d'))"), '=', $now)->whereNotNull('time_in')->whereNull('time_out')->get();
+		    $time_out = Timesheet::where('user_id', Auth::user()->id)->whereNull('time_out')->get();
+
             $date_start = date('Y-m-d',strtotime($daterange[0]));
             $date_end = date('Y-m-d',strtotime($daterange[1]));
             $employees = Timesheet::where(function($query) use ($request, $date_start, $date_end)
@@ -46,8 +81,8 @@ class TimesheetController extends Controller
                     {
                         $query->where(DB::raw("(DATE_FORMAT(time_in,'%Y-%m-%d'))"), '>=', $date_start)->where(DB::raw("(DATE_FORMAT(time_in,'%Y-%m-%d'))"), '<=', $date_end);
                     })->count();
-            return view('admin.timesheet')->with(['employees' => $employees,'count' => $count, 'date_start' => $date_start, 'date_end' => $date_end,'totalcount' => $totalcount]);  
-        }   
+            return view('admin.timesheet')->with(['employees' => $employees,'count' => $count, 'date_start' => $date_start, 'date_end' => $date_end,'totalcount' => $totalcount, 'time_in' => $time_in, 'time_out' => $time_out]);  
+        }
     }
 
     public function export(Request $request)

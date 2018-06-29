@@ -1,71 +1,71 @@
 <html>
-<head>
-  <title>LOGIN</title>
-  <meta name="viewport" content="width=device-width", initial-scale="1.0">
+  <head>
+    <title>LOGIN</title>
+    <meta name="viewport" content="width=device-width", initial-scale="1.0">
+    
+    <link rel="stylesheet" type="text/css" href="imports/css/main.css"/>
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+  <link rel="stylesheet" href="{{ asset('imports/css/bootstrap.min.css') }}">
+  <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"> -->
+  <link href="{{ asset('imports/css/materialicon.css') }}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ asset('imports/css/daterangepicker.css') }}" />
+  <link href="{{ asset('imports/css/font.css') }}" rel="stylesheet"> 
+  
+  <script type="text/javascript" src="{{ asset('imports/js/jquery.min.js') }}"></script>
+  <script src="{{ asset('imports/js/jquery1-11-1.min.js') }}"></script>
+  <script src="{{ asset('imports/js/popper.min.js') }}"></script>
+  <script src="{{ asset('imports/js/bootstrap.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('imports/js/moment.min.js') }}"></script>  
+  <script type="text/javascript" src="{{ asset('imports/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+  <link rel="stylesheet" href="{{ asset('imports/css/tempusdominus-bootstrap-4.min.css') }}" />
+  <script src="{{ asset('imports/js/sweetalert.min.js') }}"></script>
+  <script src="{{ asset('imports/js/jquery-ui.js') }}"></script>
+  <script src="{{ asset('imports/js/Chart.bundle.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('imports/js/daterangepicker.min.js') }}"></script>
+    </head>
+    
+    <body class="login_bg">
+      
+      <div class ="container mx-auto"><!---first cont div-->
+      
+      <p class="text-center logo_hp">TriCellPOS</p>
+      <div class="row mx-auto">
+        
+        <form action="/verify" method="post" id="submit_form" class="mx-auto">
+          @csrf
+          
+          <div class="input-group mb-2 mr-sm-2"> <!--user-->
+          <div class="input-group-prepend">
+            <div class="input-group-text" id="log_user" ><i class="material-icons">person</i></div>
+          </div>
+          <input type="text" class="form-control" id="log_user_form" name="username" placeholder="Username"required>
+          </div><!--user-->
+          
+          <div class="input-group mb-2 mr-sm-2 log_pass_div "> <!--pass-->
+          <div class="input-group-prepend">
+            <div class="input-group-text" id="log_pass" ><i class="material-icons">lock</i></div>
+          </div>
+          <input type="password" class="form-control" name="password" id="log_pass_form" placeholder="Password" required>
+          </div><!--pass-->
 
-  <link rel="stylesheet" type="text/css" href="imports/css/main.css"/>
-
-  <!-- bootstrap -->
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-  <!-- fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-</head>
-
-<body class="login_bg">
-
-<div class ="container"><!---first cont div-->
-  <div class ="col-md-8 col-md-offset-2">
-        <p class="text-center logo_hp">TricellPOS</p>
-<!---<div class="row">-->
-  <div class="col-md-8 col-md-offset-2">
-  <form action="/verify" method="post" id="submit_form">
-    @csrf
-
-
-      <span class="glyphicon glyphicon-user"></span>
-      <input type="text" class="form-control" id="log_user_form" name="username" placeholder="Username" required="">
-
-      <span class="glyphicon glyphicon-lock"></span>
-      <input type="password" class="form-control" name="password" id="log_pass_form" placeholder="Password" required>
-
-       <center><button class="btn-hover color-8 jquery" type="submit">LOGIN</button></center>
-
-</form>
-</div>
-</div>
-</div><!---end first cont div-->
-
-
-
-
-<!---script---->
+          
+          <center><button class="btn-hover color-8 jquery" type="submit">LOGIN</button></center>
+          
+        </form>
+      </div>
+      </div>
 
 <script>
-
- // $("#log_pass_form").after('<span class="error">helloooooo</span>');
-        //$(".error").animate({left: '100px'}, "slow");
-        //$(".error").animate({fontSize: '3em'}, "slow");
-
-        //$(".error").animate({
-        //  left: '+=100px',
-          //color: "#fff"
-        //  opacity: 0.18});
-        //  });-->
-
-
-
-  // $("#log_pass_form").after('<p class="error">Error whatever love u</p>')
-  // $(".error").animate({left: '+=100px', color: "#000"});
-
 @if (Session::has('message'))
-  $("#log_pass_form").after('<p class="error">{{ session('message') }}</p>')
-  $(".error").animate({left: '+=100px', color: "#000"});
+
+  $(".log_pass_div").after('<div class="alert alert-dark" role="alert">{{ session('message') }}<div>')
+
+  $(".alert").effect("shake");
+
 @endif
+
 </script>
+
 </body>
+
 </html>

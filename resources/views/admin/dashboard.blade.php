@@ -63,7 +63,7 @@ DASHBOARD
          </div>
        </div> 
       </div>
-      <div class="col m-1" id="new-low" onclick="window.location='{{ url("inventory/low_stocks") }}'">
+      <!-- <div class="col m-1" id="new-low" onclick="window.location='{{ url("inventory/low_stocks") }}'">
         <div class="row">
           <div class ="col-xs-1"> 
             <i class="material-icons trending_down">trending_down</i>
@@ -76,7 +76,7 @@ DASHBOARD
           </div>
         </div>
       </div>
-   </div>
+   </div> -->
 
    <div class="row">
       <div class="col m-1 border" id="sales-day">
@@ -91,7 +91,7 @@ DASHBOARD
       </div>
    </div>
 
-    <div class="row">
+    <<!-- div class="row">
       <div class="col m-1 border" id="top-products">
         <center><h6>Top Selling Products</h6></center>
         <br>
@@ -124,7 +124,7 @@ DASHBOARD
               </div>
             @endif
           @endforeach
-      </div>
+      </div> -->
 
       <div class="col m-1 border" id="sales-payment">
         <canvas id="payment-mode">

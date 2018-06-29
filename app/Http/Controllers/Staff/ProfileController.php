@@ -26,7 +26,8 @@ class ProfileController extends Controller
         'email' => 'bail|required|email',
         'tin' => 'required',
         'vat' => 'required|numeric',
-        'lowstock' => 'required|integer'
+        'washertimer' => 'required|integer',
+        'dryertimer' => 'required|integer'
         );
 
         $validator = Validator::make($request->all(), $rules);
@@ -43,7 +44,8 @@ class ProfileController extends Controller
     		'email' => $request->email,
     		'tin' => $request->tin,
     		'vat' => $request->vat,
-            'low_stock' => $request->lowstock,
+            'washertimer' => $request->washer_timer,
+            'dryertimer' => $request->dryer_timer
     		]);
         }
     }

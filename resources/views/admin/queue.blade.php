@@ -19,14 +19,16 @@ QUEUEING
 <!---end of title inventory-->
 <!--second row add item button and search bar--->
 <div class="row">
-    <div class="col-md-10"></div>
-   <div class="col-md-2">
+  <div class="col-md-10"> 
+  </div>
+  <div class="col-md-2">
     <button type="button" class="btn btn-outline-info view-btn">
       View Status
     </button>
   </div>
- </div> <!----end of second row--->
- <!---table start---->
+</div> 
+
+
     <table class="table table-hover">
 
   @csrf
@@ -38,17 +40,18 @@ QUEUEING
         </tr>
       </thead>
       <tbody class="td_class">
-        @foreach($queue as $queue)
+        @foreach($queues as $queue)
         <tr>
           <th scope="row">{{$loop->iteration}}</th>
-          <td>
+          <td class="td-center">
           @if($queue->guest_id != 0)
             {{ $queue->guest->customer_name }}
           @else
             {{ $queue->user->firstname . " " . $queue->user->lastname}}  
           @endif
-          </td>
-          <td><button type="button" class="btn btn-success switch-btn" data-id="{{$queue->id}}"><i class="material-icons">
+          </td class="td-center">
+          <td class="td-center">
+            <button type="button" class="btn btn-success switch-btn" data-id="{{$queue->id}}"><i class="material-icons md-18">
 power_settings_new
 </i></button>
           </td>
@@ -57,6 +60,8 @@ power_settings_new
 
       </tbody>
     </table>
+
+    {{$queues->links()}}
 
  <!----start of modal for add item---->
     <div class="modal fade view-status" tabindex="-1" role="dialog">
@@ -132,6 +137,7 @@ power_settings_new
 
     var switches = $('.service').find($('[data-id="'+ $(this).attr('data-id') +'"]'));
     var attr = $(this).attr('checked');
+    var id = $(this).attr('data-id');
 
 
     // if (typeof attr !== typeof undefined && attr !== false) {
@@ -150,12 +156,25 @@ power_settings_new
     url: '/queue/switch',
     data: {
             '_token': $('input[name=_token]').val(),
+            'id': id,
             'sales_id': $(this).attr('data-sales-id'),
-            'product_id': $(this).attr('data-id'),
           },
     success: function(data)
-    {
-      console.log(data);
+    {   
+      if(data.used == data.quantity)
+      {
+        //alert($('#switch' + id).data('id'));
+        if($('#switch' + id).is(':checked'))
+        {
+          
+        }
+        else
+        {
+          $('#switch' + id).attr('disabled', true);
+        }
+      }
+      // console.log(data);
+
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
       console.log(JSON.stringify(jqXHR));
@@ -171,16 +190,19 @@ power_settings_new
     url: '/queue/view_status',
     data: {
             '_token': $('input[name=_token]').val(),
-            'product_id': $(this).attr('data-id'),
           },
     success: function(data)
     {
       $('.view-status').modal('show');
       $('#viewstatus').html(data);
 
-      $('#timer1').countdown('2018-06-25 12:30:01', function(event) {
-        $(this).html(event.strftime('%M:%S'));
+      $('.timerexpire').each(function() {
+        var finishDate = $(this).data('expire');
+        $(this).countdown(finishDate, function(event) {
+          $(this).html(event.strftime('%N:%S'));
+        });
       });
+      
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
       console.log(JSON.stringify(jqXHR));

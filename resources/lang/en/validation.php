@@ -191,7 +191,8 @@ return [
         'contact_number' => 'Contact Number',
         'tin' => 'TIN',
         'vat' => 'VAT',
-        'lowstock' => 'Low Stock Indicator'
+        'washertimer' => 'Washer Timer',
+        'dryertimer' => 'Dryer Timer'
     ],
 
 ];

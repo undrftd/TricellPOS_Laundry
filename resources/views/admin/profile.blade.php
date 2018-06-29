@@ -68,15 +68,15 @@ SYSTEM PREFERENCES
             </div>
             <div class="col-md-6">
               <div class="form-group row mx-auto">
-                <label for="card-no" class="col-form-label col-md-3 modal-card">TIN:</label>
-                <div class="col-md-9">
+                <label for="card-no" class="col-form-label col-md-4 modal-card">TIN:</label>
+                <div class="col-md-8">
                   <input type="text" name="tin" value="{{$profile->tin}}" class="form-control modal-card" id="tin-profile">
                   <p id="error-tin-profile" class="error-profile" hidden="hidden"></p>
                 </div>
               </div>
               <div class="form-group row mx-auto">
-                <label for="card-no" class="col-form-label col-md-3 modal-card">VAT:</label>
-                <div class="col-md-9">
+                <label for="card-no" class="col-form-label col-md-4 modal-card">VAT:</label>
+                <div class="col-md-8">
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class ="input-group-text" id="basic-addon-profile">%</span>
@@ -87,10 +87,17 @@ SYSTEM PREFERENCES
                 </div>
               </div>
               <div class="form-group row mx-auto">
-                <label for="lowstock" class="col-form-label col-md-3 modal-mobile">Low Stock Indicator</label>
-                <div class="col-md-9">
-                  <input type="text" name="lowstock" value="{{$profile->low_stock}}" class="form-control" id="lowstock-profile">
-                  <p id="error-lowstock-profile" class="error-profile" hidden="hidden"></p>
+                <label for="washer_timer" class="col-form-label col-md-4 modal-mobile">Washer Timer:</label>
+                <div class="col-md-8">
+                  <input type="text" name="washer_timer" value="{{$profile->washer_timer}}" class="form-control" id="washertimer-profile">
+                  <p id="error-washertimer-profile" class="error-profile" hidden="hidden"></p>
+                </div>
+              </div>
+              <div class="form-group row mx-auto">
+                <label for="dryer_timer" class="col-form-label col-md-4 modal-mobile">Dryer Timer:</label>
+                <div class="col-md-8">
+                  <input type="text" name="dryer_timer" value="{{$profile->dryer_timer}}" class="form-control" id="dryertimer-profile">
+                  <p id="error-dryertimer-profile" class="error-profile" hidden="hidden"></p>
                 </div>
               </div>
             </div>
@@ -161,7 +168,8 @@ SYSTEM PREFERENCES
             'email': $("#email-profile").val(),
             'tin': $("#tin-profile").val(),
             'vat': $("#vat-profile").val(),
-            'lowstock': $("#lowstock-profile").val(),
+            'washertimer': $("#washertimer-profile").val(),
+            'dryertimer': $("#dryertimer-profile").val(),
           },
     success: function(data) {
       console.log(data);
@@ -240,16 +248,28 @@ SYSTEM PREFERENCES
             $('#basic-addon-profile').removeAttr('style');
           }
 
-          if(data.errors.lowstock)
+          if(data.errors.washertimer)
           {
-            $('#error-lowstock-profile').removeAttr("hidden");
-            $('#error-lowstock-profile').text(data.errors.lowstock);
-            $('#lowstock-profile').css("border", "1px solid #cc0000");
+            $('#error-washertimer-profile').removeAttr("hidden");
+            $('#error-washertimer-profile').text(data.errors.washertimer);
+            $('#washertimer-profile').css("border", "1px solid #cc0000");
           }
           else
           {
-            $('#error-lowstock-profile').attr("hidden", true);
-            $('#lowstock-profile').removeAttr('style');
+            $('#error-washertimer-profile').attr("hidden", true);
+            $('#washertimer-profile').removeAttr('style');
+          }
+
+          if(data.errors.dryertimer)
+          {
+            $('#error-dryertimer-profile').removeAttr("hidden");
+            $('#error-dryertimer-profile').text(data.errors.dryertimer);
+            $('#dryertimer-profile').css("border", "1px solid #cc0000");
+          }
+          else
+          {
+            $('#error-dryertimer-profile').attr("hidden", true);
+            $('#dryertimer-profile').removeAttr('style');
           }
       }
       else
