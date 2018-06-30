@@ -133,24 +133,25 @@ power_settings_new
 
   });
 
-  $(document).on('click', '.switch__toggle', function() {
+  $(document).ready(function(){
+    if(localStorage.getItem("move"))
+    {
+      swal({
+              title: "Success!",
+              text: "The customer has successfully finished his/her order!",
+              icon: "success",
+              button: "Close",
+            });
+      localStorage.clear();
+    }
+  });
 
+  $(document).on('click', '.switch__toggle', function() {
+    // e.preventDefault();
     var switches = $('.service').find($('[data-id="'+ $(this).attr('data-id') +'"]'));
     var attr = $(this).attr('checked');
     var id = $(this).attr('data-id');
 
-
-    // if (typeof attr !== typeof undefined && attr !== false) {
-    //   // Element has this attribute
-    //      console.log(1);
-    //   switches.removeAttr('checked');
-    // }
-    // else
-    // {
-    //      console.log(2);
-    //   switches.attr('checked', true);
-    // }
-    
     $.ajax({
     type: 'POST',
     url: '/queue/switch',
@@ -159,21 +160,33 @@ power_settings_new
             'id': id,
             'sales_id': $(this).attr('data-sales-id'),
           },
+    context:this,
     success: function(data)
     {   
+      // if($(this).prop('checked'))
+      // {
+      //   $(this).removeProp('checked');
+      // }
+      // else
+      // {
+      //   $(this).prop('checked', true);
+      // }
       if(data.used == data.quantity)
       {
-        //alert($('#switch' + id).data('id'));
-        if($('#switch' + id).is(':checked'))
-        {
-          
-        }
-        else
-        {
-          $('#switch' + id).attr('disabled', true);
-        }
+          if($('#switch' + id).is(':checked'))
+          {  
+          }
+          else
+          {
+            $('#switch' + id).attr('disabled', true);
+          } 
+
+          if((data.countrow == data.detailcount) && (data.sumswitch == 0))
+          {
+            localStorage.setItem("move","success");
+            window.location.reload();
+          } 
       }
-      // console.log(data);
 
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail

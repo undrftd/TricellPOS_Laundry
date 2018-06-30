@@ -61,7 +61,6 @@
         </ul>
         <ul class="navbar-nav ml-auto"> <!--right links-->
              <li class="nav-item dropdown" id="logsdrop">
-          <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             HELLO, {{strtoupper(Auth::user()->firstname)}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
