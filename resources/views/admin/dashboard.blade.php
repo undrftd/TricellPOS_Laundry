@@ -63,20 +63,7 @@ DASHBOARD
          </div>
        </div> 
       </div>
-      <!-- <div class="col m-1" id="new-low" onclick="window.location='{{ url("inventory/low_stocks") }}'">
-        <div class="row">
-          <div class ="col-xs-1"> 
-            <i class="material-icons trending_down">trending_down</i>
-          </div>
-         <div class ="col-xs-2">
-            <p class="title">Low Stock Products <span class="last-time"></br>As of {{\Carbon\Carbon::now()->format('F d')}}</span></p>
-         </div>
-         <div class ="col-xs-9 mx-auto">
-            <h1 class="low-stock">{{$lowstock}} </h1>
-          </div>
-        </div>
-      </div>
-   </div> -->
+   </div>
 
    <div class="row">
       <div class="col m-1 border" id="sales-day">
@@ -91,7 +78,7 @@ DASHBOARD
       </div>
    </div>
 
-    <<!-- div class="row">
+    <div class="row">
       <div class="col m-1 border" id="top-products">
         <center><h6>Top Selling Products</h6></center>
         <br>
@@ -103,28 +90,7 @@ DASHBOARD
                   <h5 class="label-total">Total</h5>
                 </div>
               </div>
-          @foreach($topitems as $item)
-            @if($loop->first)
-              <div class="row">
-                <div class="col">
-                  <h4>{{$loop->iteration . ". " . $item->product_name}}</h4>
-                </div>
-                <div class="col">
-                  <h2 class="top-product-price">₱ {{number_format($item->subtotal,2)}}</h2>
-                </div>
-              </div>
-            @else
-              <div class="row">
-                <div class="col">
-                  <h6 class="label-product2">{{$loop->iteration . ". " . $item->product_name}}</h6>
-                </div>
-                <div class="col">
-                  <h6 class="label-total2">₱ {{number_format($item->subtotal,2)}}</h6>
-                </div>
-              </div>
-            @endif
-          @endforeach
-      </div> -->
+      </div> 
 
       <div class="col m-1 border" id="sales-payment">
         <canvas id="payment-mode">

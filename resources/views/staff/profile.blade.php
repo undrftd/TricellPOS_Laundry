@@ -68,15 +68,15 @@ SYSTEM PREFERENCES
             </div>
             <div class="col-md-6">
               <div class="form-group row mx-auto">
-                <label for="card-no" class="col-form-label col-md-3 modal-card">TIN:</label>
-                <div class="col-md-9">
+                <label for="card-no" class="col-form-label col-md-4 modal-card">TIN:</label>
+                <div class="col-md-8">
                   <input type="text" name="tin" value="{{$profile->tin}}" class="form-control modal-card" id="tin-profile">
                   <p id="error-tin-profile" class="error-profile" hidden="hidden"></p>
                 </div>
               </div>
               <div class="form-group row mx-auto">
-                <label for="card-no" class="col-form-label col-md-3 modal-card">VAT:</label>
-                <div class="col-md-9">
+                <label for="card-no" class="col-form-label col-md-4 modal-card">VAT:</label>
+                <div class="col-md-8">
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class ="input-group-text" id="basic-addon-profile">%</span>

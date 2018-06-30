@@ -42,7 +42,7 @@ QUEUEING
       <tbody class="td_class">
         @foreach($queues as $queue)
         <tr>
-          <th scope="row">{{$loop->iteration}}</th>
+          <th scope="row">{{$loop->iteration + $skipped}}</th>
           <td class="td-center">
           @if($queue->guest_id != 0)
             {{ $queue->guest->customer_name }}

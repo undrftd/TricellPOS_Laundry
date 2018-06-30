@@ -228,4 +228,9 @@ font-size: 18px;
 .switch_type1 .switch__toggle:checked ~ .switch__label:after{
   transform: translate3d(100%, -50%, 0);
 }
-
+.col.service{
+  flex-grow: 0!important;
+}
+.divider {    
+    width: 420px !important;
+}

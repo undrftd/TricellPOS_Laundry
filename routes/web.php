@@ -147,4 +147,11 @@ Route::group(['middleware' => ['staff', 'timeout']], function () {
    	Route::get('staff/account', 'Staff\AccountController@index');
    	Route::post('staff/update_account', 'Staff\AccountController@edit');
 
+   	//Timesheet
+   	Route::get('staff/timesheet', 'Staff\TimesheetController@index');
+   	Route::post('staff/timesheet/time_in', 'Staff\TimesheetController@time_in');
+   	Route::get('staff/timesheet/time_out', 'Staff\TimesheetController@time_out');
+   	Route::get('staff/timesheet/filter', 'Staff\TimesheetController@filter');
+   	Route::get('staff/timesheet/export', 'Staff\TimesheetController@export');
+
 });

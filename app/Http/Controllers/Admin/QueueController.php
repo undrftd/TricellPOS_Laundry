@@ -22,7 +22,8 @@ class QueueController extends Controller
         $now = Carbon::now()->format('Y-m-d');
         
         $queues = Sale::where(DB::raw("(DATE_FORMAT(transaction_date,'%Y-%m-%d'))"), '=', $now)->orderBy('transaction_date', 'asc')->paginate(7);
-        return view('admin.queue')->with(['queues' => $queues]);
+        $skipped = ($queues->currentPage() * $queues->perPage()) - $queues->perPage();
+        return view('admin.queue')->with(['queues' => $queues, 'skipped' => $skipped]);
     }
 
     public function viewstatus()

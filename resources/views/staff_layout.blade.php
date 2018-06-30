@@ -43,6 +43,9 @@
                 <a class="dropdown-item" href="/staff/logs/reload">Reload</a>
           </li>
           <li class="nav-item">
+           <a class="nav-link {{ Request::segment(1)=='timesheet' ? 'active' : '' }}" href="/staff/timesheet">TIMESHEET</a>
+         </li>
+          <li class="nav-item">
            <a class="nav-link {{ Request::segment(2)=='preferences' ? 'active' : '' }}" href="/staff/preferences/profile"> PREFERENCES </a>
          </li>
         </ul>
