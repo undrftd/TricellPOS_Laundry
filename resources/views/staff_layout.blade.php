@@ -39,11 +39,11 @@
                 LOGS
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="/staff/logs/sales">Sales</a>
-                <a class="dropdown-item" href="/staff/logs/reload">Reload</a>
+                <a class="dropdown-item {{ Request::segment(2)=='sales' ? 'active' : '' }}" href="/staff/logs/sales">Sales</a>
+                <a class="dropdown-item {{ Request::segment(2)=='reload' ? 'active' : '' }}" href="/staff/logs/reload">Reload</a>
           </li>
           <li class="nav-item">
-           <a class="nav-link {{ Request::segment(1)=='timesheet' ? 'active' : '' }}" href="/staff/timesheet">TIMESHEET</a>
+           <a class="nav-link {{ Request::segment(2)=='timesheet' ? 'active' : '' }}" href="/staff/timesheet">TIMESHEET</a>
          </li>
           <li class="nav-item">
            <a class="nav-link {{ Request::segment(2)=='preferences' ? 'active' : '' }}" href="/staff/preferences/profile"> PREFERENCES </a>
@@ -55,7 +55,7 @@
             HELLO, {{strtoupper(Auth::user()->firstname)}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/staff/account">My Account</a>
+            <a class="dropdown-item {{ Request::segment(2)=='account' ? 'active' : '' }}" href="/staff/account">My Account</a>
             <a class="dropdown-item" href="#">Shutdown</a>
             <a class="dropdown-item" href="/logout">Logout</a>
 

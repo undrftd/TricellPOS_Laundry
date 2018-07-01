@@ -14,6 +14,8 @@ use Response;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class QueueController extends Controller
 {
@@ -54,13 +56,21 @@ class QueueController extends Controller
 
         if($details->product->switch == 0)
         {
-            passthru("sudo python machine" . $request->product_id . ".py");
+            //python script
+            // $id =  $request->product_id;
+            // $process = new Process("python machine{$id}.py");
+            // $process->run();
+
+            // if (!$process->isSuccessful()) {
+            //     throw new ProcessFailedException($process);
+            // }
+
             $details->product->switch = 1;
             $details->product->used_by = $request->sales_id;
             $details->switch = 1;  
             $details->used = $details->used +1;
             
-            if($details->product_id <= 8)
+            if($details->product_id <= 12)
             {
                 $details->product->finish_date = Carbon::now()->addMinutes($profile->washer_timer);
             }

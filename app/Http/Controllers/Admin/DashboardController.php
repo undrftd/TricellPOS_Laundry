@@ -63,17 +63,34 @@ class DashboardController extends Controller
         $loadpay = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->where('payment_mode', 'card load')->get()->toArray();
         $loadpay = array_column($loadpay, 'ROUND(SUM(amount_due),2)');
         
-        //bar member vs walk-in 
-        $membersales = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->where('guest_id', '0')->get()->toArray();
-        $membersales = array_column($membersales, 'ROUND(SUM(amount_due),2)');
-        $guestsales = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->where('guest_id', '!=', '0')->get()->toArray();
-        $guestsales = array_column($guestsales, 'ROUND(SUM(amount_due),2)');
-
-        // $topitems = DB::table('sales_details')->selectRaw('DISTINCT sales_details.product_id, products.product_name, SUM(subtotal) as subtotal')->groupBy('product_id')->join('products', 'sales_details.product_id', '=', 'products.product_id')->limit(10)->orderBy('subtotal', 'desc')->get()->toArray();
+        //sales today
+        $datenow = Carbon::now()->format('Y-m-d');
+        $ten_eleven = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->whereRaw("(DATE_FORMAT(transaction_date, '%Y-%m-%d') = '$datenow')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') >= '10:00')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') <= '10:59')")->get()->toArray();
+        $ten_eleven = array_column($ten_eleven, 'ROUND(SUM(amount_due),2)');
+        $eleven_twelve = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->whereRaw("(DATE_FORMAT(transaction_date, '%Y-%m-%d') = '$datenow')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') >= '11:00')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') <= '11:59')")->get()->toArray();
+        $eleven_twelve = array_column($eleven_twelve, 'ROUND(SUM(amount_due),2)');
+        $twelve_one = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->whereRaw("(DATE_FORMAT(transaction_date, '%Y-%m-%d') = '$datenow')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') >= '12:00')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') <= '12:59')")->get()->toArray();
+        $twelve_one = array_column($twelve_one, 'ROUND(SUM(amount_due),2)');
+        $one_two = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->whereRaw("(DATE_FORMAT(transaction_date, '%Y-%m-%d') = '$datenow')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') >= '13:00')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') <= '13:59')")->get()->toArray();
+        $one_two = array_column($one_two, 'ROUND(SUM(amount_due),2)');
+        $two_three = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->whereRaw("(DATE_FORMAT(transaction_date, '%Y-%m-%d') = '$datenow')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') >= '14:00')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') <= '14:59')")->get()->toArray();
+        $two_three = array_column($two_three, 'ROUND(SUM(amount_due),2)');
+        $three_four = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->whereRaw("(DATE_FORMAT(transaction_date, '%Y-%m-%d') = '$datenow')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') >= '15:00')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') <= '15:59')")->get()->toArray();
+        $three_four = array_column($three_four, 'ROUND(SUM(amount_due),2)');
+        $four_five = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->whereRaw("(DATE_FORMAT(transaction_date, '%Y-%m-%d') = '$datenow')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') >= '16:00')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') <= '16:59')")->get()->toArray();
+        $four_five = array_column($four_five, 'ROUND(SUM(amount_due),2)');
+        $five_six = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->whereRaw("(DATE_FORMAT(transaction_date, '%Y-%m-%d') = '$datenow')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') >= '17:00')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') <= '17:59')")->get()->toArray();
+        $five_six = array_column($five_six, 'ROUND(SUM(amount_due),2)');
+        $six_seven = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->whereRaw("(DATE_FORMAT(transaction_date, '%Y-%m-%d') = '$datenow')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') >= '18:00')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') <= '18:59')")->get()->toArray();
+        $six_seven = array_column($six_seven, 'ROUND(SUM(amount_due),2)');
+        $seven_eight = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->whereRaw("(DATE_FORMAT(transaction_date, '%Y-%m-%d') = '$datenow')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') >= '19:00')")->whereRaw("(DATE_FORMAT(transaction_date, '%H:%i') <= '19:59')")->get()->toArray();
+        $seven_eight = array_column($seven_eight, 'ROUND(SUM(amount_due),2)');
+       
+        $salestoday = array($ten_eleven, $eleven_twelve, $twelve_one, $one_two, $two_three, $three_four, $four_five, $five_six, $six_seven, $seven_eight);
 
         $topmembers = DB::table('sales')->selectRaw('DISTINCT (sales.member_id), CONCAT(users.firstname, " ", users.lastname) as name, SUM(amount_due) as amount_due')->groupBy('member_id')->join('users', 'sales.member_id', '=', 'users.id')->limit(10)->orderBy('amount_due', 'desc')->get()->toArray();
 
-        return view('admin.dashboard')->with(['newmembers' => $newmembers, 'reloadsales' => $reloadsales, 'sales' => $sales, 'cashpay' => json_encode($cashpay,JSON_NUMERIC_CHECK), 'loadpay' => json_encode($loadpay,JSON_NUMERIC_CHECK),'yearsales' => $yearsales, 'membersales' => json_encode($membersales,JSON_NUMERIC_CHECK), 'guestsales' => json_encode($guestsales,JSON_NUMERIC_CHECK), 'topmembers' => $topmembers]);
+        return view('admin.dashboard')->with(['newmembers' => $newmembers, 'reloadsales' => $reloadsales, 'sales' => $sales, 'cashpay' => json_encode($cashpay,JSON_NUMERIC_CHECK), 'loadpay' => json_encode($loadpay,JSON_NUMERIC_CHECK),'yearsales' => $yearsales,'salestoday' => $salestoday, 'topmembers' => $topmembers]);
     }
 
 }

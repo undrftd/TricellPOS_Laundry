@@ -296,6 +296,7 @@ body{
 .pos-button-active{
     border: 4px inset #1c6773 !important;
     background-color: #1d4d54 !important;
+    filter: brightness(75%);
 }
 
 @keyframes blink {

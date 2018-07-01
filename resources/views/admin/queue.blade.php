@@ -164,7 +164,6 @@ power_settings_new
           },
     success: function(data)
     {   
-      alert(prod_id);
       if(data.used == data.quantity)
       {
           if($('#switch' + id).is(':checked'))
