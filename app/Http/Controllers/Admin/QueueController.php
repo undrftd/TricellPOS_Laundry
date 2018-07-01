@@ -54,6 +54,7 @@ class QueueController extends Controller
 
         if($details->product->switch == 0)
         {
+            passthru("sudo python machine" . $request->product_id . ".py");
             $details->product->switch = 1;
             $details->product->used_by = $request->sales_id;
             $details->switch = 1;  

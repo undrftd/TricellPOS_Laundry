@@ -151,6 +151,7 @@ power_settings_new
     var switches = $('.service').find($('[data-id="'+ $(this).attr('data-id') +'"]'));
     var attr = $(this).attr('checked');
     var id = $(this).attr('data-id');
+    var prod_id = $(this).attr('data-product-id');
 
     $.ajax({
     type: 'POST',
@@ -159,18 +160,11 @@ power_settings_new
             '_token': $('input[name=_token]').val(),
             'id': id,
             'sales_id': $(this).attr('data-sales-id'),
+            'product_id': prod_id,
           },
-    context:this,
     success: function(data)
     {   
-      // if($(this).prop('checked'))
-      // {
-      //   $(this).removeProp('checked');
-      // }
-      // else
-      // {
-      //   $(this).prop('checked', true);
-      // }
+      alert(prod_id);
       if(data.used == data.quantity)
       {
           if($('#switch' + id).is(':checked'))
