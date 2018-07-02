@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use DB;
@@ -25,14 +25,14 @@ class QueueController extends Controller
         
         $queues = Sale::where(DB::raw("(DATE_FORMAT(transaction_date,'%Y-%m-%d'))"), '=', $now)->orderBy('transaction_date', 'asc')->where('finished_ind', 'N')->paginate(7);
         $skipped = ($queues->currentPage() * $queues->perPage()) - $queues->perPage();
-        return view('admin.queue')->with(['queues' => $queues, 'skipped' => $skipped]);
+        return view('staff.queue')->with(['queues' => $queues, 'skipped' => $skipped]);
     }
 
     public function viewstatus()
     {
         $washers = Product::where('product_name', 'LIKE', 'Washer%')->get();
         $dryers = Product::where('product_name', 'LIKE', 'Dryer%')->get();
-        return view('admin.queuestatus')->with(['washers' => $washers, 'dryers' => $dryers]);
+        return view('staff.queuestatus')->with(['washers' => $washers, 'dryers' => $dryers]);
     }
 
     public function showdetails(Request $request)
@@ -42,7 +42,7 @@ class QueueController extends Controller
         $dryers = Sales_details::with('product')->where('sales_id', $sales_id)->where('product_id', '>', 12)->orderBy('product_id', 'asc')->get();
         $expire = Carbon::now()->addMinutes(10)->toDateTimeString();
         
-       return view('admin.queuedetails')->with(['washers' => $washers, 'dryers' => $dryers, 'expire'=> $expire ]);
+       return view('staff.queuedetails')->with(['washers' => $washers, 'dryers' => $dryers, 'expire'=> $expire ]);
     }
 
     public function switch(Request $request)

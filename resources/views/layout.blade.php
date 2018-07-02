@@ -36,19 +36,19 @@
        <a class="nav-link {{ Request::segment(1)=='dashboard' ? 'active' : '' }}" href="/dashboard"> DASHBOARD </a>
      </li>
      <li class="nav-item">
-       <a class="nav-link {{ Request::segment(1)=='sales' ? 'active' : '' }}" href="/sales"> POS </a>
+       <a class="nav-link {{ Request::segment(1)=='sales' ? 'active' : '' }}" href="/sales"> BILLING </a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link {{ Request::segment(1)=='queue' ? 'active' : '' }}" href="/queue">QUEUEING</a>
      </li>
      <li class="nav-item dropdown" id="logsdrop">
-          <a class="nav-link dropdown-toggle {{ Request::segment(1)=='logs' ? 'active' : '' }}" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle {{ Request::segment(1)=='logs' ? 'active' : '' }}"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             LOGS
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item {{ Request::segment(2)=='sales' ? 'active' : '' }}" href="/logs/sales">Sales</a>
             <a class="dropdown-item {{ Request::segment(2)=='reload' ? 'active' : '' }}" href="/logs/reload">Reload</a>
       </li>
-     <li class="nav-item">
-       <a class="nav-link {{ Request::segment(1)=='queue' ? 'active' : '' }}" href="/queue">QUEUEING</a>
-     </li>
      <li class="nav-item">
        <a class="nav-link {{ Request::segment(1)=='services' ? 'active' : '' }}" href="/services/washers">SERVICES</a>
      </li>
@@ -61,7 +61,7 @@
         </ul>
         <ul class="navbar-nav ml-auto"> <!--right links-->
              <li class="nav-item dropdown" id="logsdrop">
-          <a class="nav-link dropdown-toggle  {{ Request::segment(1)=='account' || Request::segment(1)=='preferences' ? 'active' : '' }}" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle  {{ Request::segment(1)=='account' || Request::segment(1)=='preferences' ? 'active' : '' }}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             HELLO, {{strtoupper(Auth::user()->firstname)}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

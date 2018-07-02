@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('staff_layout')
 
 @section('title')
 QUEUEING
@@ -115,7 +115,7 @@ power_settings_new
   $(document).on('click', '.switch-btn', function() {
     $.ajax({
     type: 'POST',
-    url: '/queue/showdetails',
+    url: '/staff/queue/showdetails',
     data: {
             '_token': $('input[name=_token]').val(),
             'sales_id': $(this).attr('data-id'),
@@ -155,7 +155,7 @@ power_settings_new
 
     $.ajax({
     type: 'POST',
-    url: '/queue/switch',
+    url: '/staff/queue/switch',
     data: {
             '_token': $('input[name=_token]').val(),
             'id': id,
@@ -193,7 +193,7 @@ power_settings_new
   $(document).on('click', '.view-btn', function() {
     $.ajax({
     type: 'POST',
-    url: '/queue/view_status',
+    url: '/staff/queue/view_status',
     data: {
             '_token': $('input[name=_token]').val(),
           },

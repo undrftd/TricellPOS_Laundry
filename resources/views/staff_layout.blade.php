@@ -22,25 +22,29 @@
   <script src="{{ asset('imports/js/jquery-ui.js') }}"></script>
   <script src="{{ asset('imports/js/Chart.bundle.js') }}"></script>
   <script type="text/javascript" src="{{ asset('imports/js/daterangepicker.min.js') }}"></script>
+  <script src="{{ asset('imports/js/jquery.countdown.js') }}"></script>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a href="/" class="navbar-brand">Brand</a>
+    <a href="/" class="navbar-brand">+</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar6">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse justify-content-stretch" id="navbar6">
         <ul class="navbar-nav">
          <li class="nav-item">
-           <a class="nav-link {{ Request::segment(2)=='sales' ? 'active' : '' }}" href="/staff/sales"> POS </a>
+           <a class="nav-link {{ Request::segment(2)=='sales' ? 'active' : '' }}" href="/staff/sales"> BILLING </a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link {{ Request::segment(2)=='queue' ? 'active' : '' }}" href="/staff/queue">QUEUEING</a>
          </li>
          <li class="nav-item dropdown" id="logsdrop">
-              <a class="nav-link dropdown-toggle {{ Request::segment(2)=='logs' ? 'active' : '' }}" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle {{ Request::segment(2)=='logs' ? 'active' : '' }}"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 LOGS
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item {{ Request::segment(2)=='sales' ? 'active' : '' }}" href="/staff/logs/sales">Sales</a>
-                <a class="dropdown-item {{ Request::segment(2)=='reload' ? 'active' : '' }}" href="/staff/logs/reload">Reload</a>
+                <a class="dropdown-item {{ Request::segment(3)=='sales' ? 'active' : '' }}" href="/staff/logs/sales">Sales</a>
+                <a class="dropdown-item {{ Request::segment(3)=='reload' ? 'active' : '' }}" href="/staff/logs/reload">Reload</a>
           </li>
           <li class="nav-item">
            <a class="nav-link {{ Request::segment(2)=='timesheet' ? 'active' : '' }}" href="/staff/timesheet">TIMESHEET</a>
@@ -51,7 +55,7 @@
         </ul>
         <ul class="navbar-nav ml-auto"> <!--right links-->
              <li class="nav-item dropdown" id="logsdrop">
-          <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle {{ Request::segment(1)=='account' || Request::segment(1)=='preferences' ? 'active' : '' }}"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             HELLO, {{strtoupper(Auth::user()->firstname)}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

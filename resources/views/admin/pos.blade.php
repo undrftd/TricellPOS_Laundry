@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-SALE
+BILLING
 @endsection
 
 @section('css')
