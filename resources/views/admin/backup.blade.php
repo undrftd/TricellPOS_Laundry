@@ -69,10 +69,10 @@ BACKUP
         <tbody>
         @foreach($backups as $backup)
             <tr>
-                <td class="td-center">{{ $backup['file_name'] }}</td>
-                <td class="td-center">{{ $backup['file_size'] }}</td>
-                <td class="td-center">{{ $backup['last_modified'] }}</td>
-                <td class="td-center">{{ $backup['age'] }}</td>
+                <td>{{ $backup['file_name'] }}</td>
+                <td>{{ $backup['file_size'] }}</td>
+                <td>{{ $backup['last_modified'] }}</td>
+                <td>{{ $backup['age'] }}</td>
                 <td>
                     <a class="btn btn-primary edit-btn"
                        href="{{ url('backup/download/'.$backup['file_name']) }}"><i class="material-icons md-18">cloud_download</i>

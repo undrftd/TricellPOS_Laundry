@@ -19,25 +19,20 @@ RELOAD SALES
 <!---end of title inventory-->
 <!--second row add item button and search bar--->
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
    <h3 class="text-info">Total Sales: <span style="color:dimgray">₱ {{number_format($sumsales,2)}}</span></h3>
   </div>
-   <div class="col-md-6">
-    <div class="row">
-      <div class="col-md-4">
-        <a href="/staff/logs/reload/export" class="form-control btn btn-outline-info add-item-btn">Export to CSV</a>
-      </div>
-      <div class="col-md-8">
-        <form class="form ml-auto" action="/staff/logs/reload/filter" method="GET">
-          <div class="input-group">
-              <input class="form-control" name="date_filter" type="text" placeholder="Filter by Date" aria-label="Search" style="padding-left: 20px; border-radius: 40px;" id="date_filter" autocomplete="off">
-              <div class="input-group-addon" style="margin-left: -50px; z-index: 3; border-radius: 40px; background-color: transparent; border:none;">
-                <button class="btn btn-outline-info btn-sm" type="submit" style="border-radius: 100px;" id="search-btn"><i class="material-icons">search</i></button>
-              </div>
+   <div class="col-md-4">
+    <a href="/staff/logs/reload/export" class="form-control btn btn-outline-info add-item-btn">
+Export to CSV</a>
+    <form class="form ml-auto" action="/staff/logs/reload/filter" method="GET">
+      <div class="input-group">
+          <input class="form-control" name="date_filter" type="text" placeholder="Filter by Date" aria-label="Search" style="padding-left: 20px; border-radius: 40px;" id="date_filter" autocomplete="off">
+          <div class="input-group-addon" style="margin-left: -50px; z-index: 3; border-radius: 40px; background-color: transparent; border:none;">
+            <button class="btn btn-outline-info btn-sm" type="submit" style="border-radius: 100px;" id="search-btn"><i class="material-icons">search</i></button>
           </div>
-        </form>
       </div>
-    </div>
+    </form>
   </div>
  </div> <!----end of second row--->
  <!---table start---->

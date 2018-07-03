@@ -103,7 +103,6 @@ body{
  .full {
      width: 100% !important;
      height: 55px !important;
-     font-weight: 600 !important;
 }
  .table td, .table th {
      font-size: 12px !important;
@@ -127,7 +126,7 @@ body{
      background-color: #fdfdfe !important;
 }
  .btn.payment-btn {
-     padding: 0.35rem 1.7944rem !important;
+     padding: 0.1rem 2rem !important;
      font-size: 1rem !important;
      word-wrap: break-word !important;
      white-space: normal !important;
@@ -296,7 +295,6 @@ body{
 .pos-button-active{
     border: 4px inset #1c6773 !important;
     background-color: #1d4d54 !important;
-    filter: brightness(75%);
 }
 
 @keyframes blink {
@@ -371,14 +369,6 @@ blink{animation: blink 1s infinite;}
 }
 ::-webkit-scrollbar { 
 display: none !important; 
-}
-
-.pos-button.dryer{
-    background-color: #f1c40f !important;
-    border-color: #f1c40f !important;
-}
-.pos-label{
-    color:white;
 }
 /*#display_table td, #display_table th{
     text-align: center !important;

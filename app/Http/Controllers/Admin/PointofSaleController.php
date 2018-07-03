@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Staff;
+namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 
@@ -27,10 +27,10 @@ class PointofSaleController extends Controller
     public function index()
     {
         $allitems = Product::orderBy('product_name', 'asc')->get();
-        $items = Product::orderBy('product_name', 'asc')->get();
+    	$items = Product::orderBy('product_name', 'asc')->get();
         $vat = DB::table('profile')->select('vat')->where('id', 1)->first();
         $discounts = Discount::all();
-        return view('staff.pos')->with(['items' => $items, 'allitems' => $allitems, 'vat' => $vat, 'discounts' => $discounts]);
+    	return view('admin.pos')->with(['items' => $items, 'allitems' => $allitems, 'vat' => $vat, 'discounts' => $discounts]);
     }
 
     public function member_autocomplete(Request $request)

@@ -16,13 +16,13 @@ class ServicesController extends Controller
     
     public function index()
     {
-    	$products = Product::where('product_name', 'LIKE', 'Washer%')->orderBy('product_id', 'asc')->paginate(7);
+    	$products = Product::where('product_name', 'LIKE', 'Washer%')->orderBy('product_name', 'asc')->get();
     	return view('admin.washers')->with('products', $products);
     }
 
     public function dryer()
     {
-        $products = Product::where('product_name', 'LIKE', 'Dryer%')->orderBy('product_id', 'asc')->paginate(7);
+        $products = Product::where('product_name', 'LIKE', 'Dryer%')->orderBy('product_name', 'asc')->get();
         return view('admin.dryers')->with('products', $products);
     }
 

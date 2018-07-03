@@ -2,8 +2,9 @@
   
   <h6>WASHERS</h6> <br>
   <div class="row mx-auto">
+
       @foreach($washers as $washer)
-        <div class="col-md-2">
+        <div class="col">
           <h5><b>{{$loop->iteration}} </b></h5>
           @if($washer->switch != 0)
             <center><i class="material-icons laundry_icon 
@@ -33,7 +34,7 @@
   <h6>DRYERS</h6> <br>
   <div class="row mx-auto">
       @foreach($dryers as $dryer)
-        <div class="col-md-2">
+        <div class="col">
           <h5><b>{{$loop->iteration}}</b></h5>
           @if($dryer->switch != 0)
             <center><i class="material-icons laundry_icon 

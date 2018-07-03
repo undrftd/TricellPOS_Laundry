@@ -3,8 +3,7 @@
 		@if(count($washers) != 0)
 			@foreach($washers as $washer)
 				<div class="col mx-auto service">
-					<h6><b>{{substr($washer->product->product_name, strpos($washer->product->product_name, " ") + 1)}}
-						 </b></h6>
+					<h6><b>{{substr($washer->product->product_name,-1)}}</b></h6>
 					<center><i class="material-icons laundry_icon_button2">local_laundry_service</i></center>
 					<center><label class="switch switch_type1" role="switch">
 						<input type="checkbox" class="switch__toggle" id="switch{{$washer->id}}" data-id="{{$washer->id}}" data-product-id="{{$washer->product_id}}" data-sales-id = "{{ $washer->sales_id }}" data-switch = "{{ $washer->product->switch }}" data-used="{{$washer->used}}"
@@ -42,7 +41,7 @@
 		@if(count($dryers) != 0)
 			@foreach($dryers as $dryer)
 				<div class="col mx-auto service">
-					<h6><b>{{substr($dryer->product->product_name, strpos($dryer->product->product_name, " ") + 1)}} </b></h6>
+					<h6><b>{{substr($dryer->product->product_name,-1)}} </b></h6>
 					<center><i class="material-icons laundry_icon_button2">toys</i></center>
 					<center><label class="switch switch_type1" role="switch">
 						<input type="checkbox" class="switch__toggle" id="switch{{$dryer->id}}" data-id="{{$dryer->id}}" data-product-id="{{$dryer->product_id}}" data-sales-id = "{{ $dryer->sales_id }}" data-switch = "{{ $dryer->product->switch }}" data-used="{{$dryer->used}}"

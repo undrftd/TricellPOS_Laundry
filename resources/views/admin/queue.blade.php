@@ -133,26 +133,24 @@ power_settings_new
 
   });
 
-  $(document).ready(function(){
-    if(localStorage.getItem("move"))
-    {
-      swal({
-              title: "Success!",
-              text: "The customer has successfully completed his/her order!",
-              icon: "success",
-              button: "Close",
-            });
-      localStorage.clear();
-    }
-  });
-
   $(document).on('click', '.switch__toggle', function() {
-    // e.preventDefault();
+
     var switches = $('.service').find($('[data-id="'+ $(this).attr('data-id') +'"]'));
     var attr = $(this).attr('checked');
     var id = $(this).attr('data-id');
-    var prod_id = $(this).attr('data-product-id');
 
+
+    // if (typeof attr !== typeof undefined && attr !== false) {
+    //   // Element has this attribute
+    //      console.log(1);
+    //   switches.removeAttr('checked');
+    // }
+    // else
+    // {
+    //      console.log(2);
+    //   switches.attr('checked', true);
+    // }
+    
     $.ajax({
     type: 'POST',
     url: '/queue/switch',
@@ -160,26 +158,22 @@ power_settings_new
             '_token': $('input[name=_token]').val(),
             'id': id,
             'sales_id': $(this).attr('data-sales-id'),
-            'product_id': prod_id,
           },
     success: function(data)
     {   
       if(data.used == data.quantity)
       {
-          if($('#switch' + id).is(':checked'))
-          {  
-          }
-          else
-          {
-            $('#switch' + id).attr('disabled', true);
-          } 
-
-          if((data.countrow == data.detailcount) && (data.sumswitch == 0))
-          {
-            localStorage.setItem("move","success");
-            window.location.reload();
-          } 
+        //alert($('#switch' + id).data('id'));
+        if($('#switch' + id).is(':checked'))
+        {
+          
+        }
+        else
+        {
+          $('#switch' + id).attr('disabled', true);
+        }
       }
+      // console.log(data);
 
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail

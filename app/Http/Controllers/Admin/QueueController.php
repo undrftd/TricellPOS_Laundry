@@ -14,8 +14,6 @@ use Response;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class QueueController extends Controller
 {
@@ -23,7 +21,7 @@ class QueueController extends Controller
     {
         $now = Carbon::now()->format('Y-m-d');
         
-        $queues = Sale::where(DB::raw("(DATE_FORMAT(transaction_date,'%Y-%m-%d'))"), '=', $now)->orderBy('transaction_date', 'asc')->where('finished_ind', 'N')->paginate(7);
+        $queues = Sale::where(DB::raw("(DATE_FORMAT(transaction_date,'%Y-%m-%d'))"), '=', $now)->orderBy('transaction_date', 'asc')->paginate(7);
         $skipped = ($queues->currentPage() * $queues->perPage()) - $queues->perPage();
         return view('admin.queue')->with(['queues' => $queues, 'skipped' => $skipped]);
     }
@@ -38,8 +36,8 @@ class QueueController extends Controller
     public function showdetails(Request $request)
     {
         $sales_id = $request->sales_id;
-        $washers = Sales_details::with('product')->where('sales_id', $sales_id)->where('product_id', '<=', 12)->orderBy('product_id', 'asc')->get();
-        $dryers = Sales_details::with('product')->where('sales_id', $sales_id)->where('product_id', '>', 12)->orderBy('product_id', 'asc')->get();
+        $washers = Sales_details::with('product')->where('sales_id', $sales_id)->where('product_id', '<=', 8)->orderBy('product_id', 'asc')->get();
+        $dryers = Sales_details::with('product')->where('sales_id', $sales_id)->where('product_id', '>', 8)->orderBy('product_id', 'asc')->get();
         $expire = Carbon::now()->addMinutes(10)->toDateTimeString();
         
        return view('admin.queuedetails')->with(['washers' => $washers, 'dryers' => $dryers, 'expire'=> $expire ]);
@@ -50,27 +48,14 @@ class QueueController extends Controller
         $details = Sales_details::where('id', $request->id)->where('sales_id', $request->sales_id)->first();
         $profile = DB::table('profile')->select('*')->where('id', 1)->first();
 
-        $countrow = 0;
-        $detailrows = Sales_details::where('sales_id', $request->sales_id)->get();
-        $detailcount = count($detailrows);
-
         if($details->product->switch == 0)
         {
-            //python script
-            // $id =  $request->product_id;
-            // $process = new Process("python machine{$id}.py");
-            // $process->run();
-
-            // if (!$process->isSuccessful()) {
-            //     throw new ProcessFailedException($process);
-            // }
-
             $details->product->switch = 1;
             $details->product->used_by = $request->sales_id;
             $details->switch = 1;  
             $details->used = $details->used +1;
             
-            if($details->product_id <= 12)
+            if($details->product_id <= 8)
             {
                 $details->product->finish_date = Carbon::now()->addMinutes($profile->washer_timer);
             }
@@ -84,31 +69,10 @@ class QueueController extends Controller
             $details->product->switch = 0; 
             $details->product->used_by = 0; 
             $details->switch = 0; 
-
-            foreach($detailrows as $row)
-            {
-                if($row->quantity == $row->used)
-                {
-                    $countrow++;
-                }
-            }
         }
-        
         $details->save();
         $details->product->save();
 
-        $sumswitch = Sales_details::selectRaw('SUM(switch)')->where('sales_id', $request->sales_id)->value('SUM(switch)');
-
-        // dd($sumswitch);
-
-        if(($countrow == $detailcount) && $sumswitch == 0)
-        {
-            $details->sale->finished_ind = 'Y'; 
-        }
-        
-        $details->sale->save();  
-
-
-        return Response::json(array('used' => $details->used, 'quantity' => $details->quantity, 'detailcount' => $detailcount, 'countrow' => $countrow, 'sumswitch' => $sumswitch));
+        return Response::json(array('used' => $details->used, 'quantity' => $details->quantity));
     }
 }

@@ -11,28 +11,28 @@
 |
 */
 
-Route::get('/', 'LoginController@index'); 
+Route::get('/', 'LoginController@index')->middleware('timeout'); 
 Route::post('verify', 'LoginController@verify'); 
 Route::get('logout', 'LoginController@logout');
 
-Route::group(['middleware' => ['admin']], function () {
+Route::group(['middleware' => ['admin', 'timeout']], function () {
 	//Dashboard
 	Route::get('dashboard', 'Admin\DashboardController@index');
 
-	//POS
-	Route::get('sales', 'Admin\PointofSaleController@index');
-	Route::get('sales/buttons', 'Admin\PointofSaleController@buttonload');
-	Route::post('sales/member_cashpayment', 'Admin\PointofSaleController@member_cashpayment');
-	Route::post('sales/member_loadpayment', 'Admin\PointofSaleController@member_loadpayment');
-	Route::get('sales/member_autocomplete', 'Admin\PointofSaleController@member_autocomplete');
-	Route::post('sales/guest_cashpayment', 'Admin\PointofSaleController@guest_cashpayment');
-	Route::post('sales/member_reload', 'Admin\PointofSaleController@reload');
+   	//POS
+   	Route::get('sales', 'Admin\PointofSaleController@index');
+   	Route::get('sales/buttons', 'Admin\PointofSaleController@buttonload');
+   	Route::post('sales/member_cashpayment', 'Admin\PointofSaleController@member_cashpayment');
+   	Route::post('sales/member_loadpayment', 'Admin\PointofSaleController@member_loadpayment');
+   	Route::get('sales/member_autocomplete', 'Admin\PointofSaleController@member_autocomplete');
+   	Route::post('sales/guest_cashpayment', 'Admin\PointofSaleController@guest_cashpayment');
+   	Route::post('sales/member_reload', 'Admin\PointofSaleController@reload');
 
-	//Queueing
-	Route::get('queue', 'Admin\QueueController@index');
-	Route::post('queue/view_status', 'Admin\QueueController@viewstatus');
-	Route::post('queue/showdetails', 'Admin\QueueController@showdetails');
-	Route::post('queue/switch', 'Admin\QueueController@switch');
+   	//Queueing
+   	Route::get('queue', 'Admin\QueueController@index');
+   	Route::post('queue/view_status', 'Admin\QueueController@viewstatus');
+   	Route::post('queue/showdetails', 'Admin\QueueController@showdetails');
+   	Route::post('queue/switch', 'Admin\QueueController@switch');
 
 	//Sales Logs
 	Route::get('logs/sales', 'Admin\SalesLogsController@index');
@@ -81,48 +81,42 @@ Route::group(['middleware' => ['admin']], function () {
 	//Preferences
 	Route::get('preferences/backup', 'Admin\BackupController@index');
 	Route::get('backup/create', 'Admin\BackupController@create');
-   Route::get('backup/download/{file_name}', 'Admin\BackupController@download');
-	Route::get('backup/delete/{file_name}', 'Admin\BackupController@delete');
-	Route::get('preferences/backup/search', 'Admin\BackupController@search');
-	Route::get('preferences/profile', 'Admin\ProfileController@index');
-	Route::post('preferences/update_profile', 'Admin\ProfileController@edit');
-	Route::get('preferences/discounts', 'Admin\DiscountsController@index');
-	Route::post('preferences/add_discount', 'Admin\DiscountsController@create');
-	Route::post('preferences/update_discount', 'Admin\DiscountsController@edit');
-	Route::post('preferences/delete_discount', 'Admin\DiscountsController@destroy');
-	Route::get('preferences/discounts/search', 'Admin\DiscountsController@search');
+    Route::get('backup/download/{file_name}', 'Admin\BackupController@download');
+   	Route::get('backup/delete/{file_name}', 'Admin\BackupController@delete');
+   	Route::get('preferences/backup/search', 'Admin\BackupController@search');
+   	Route::get('preferences/profile', 'Admin\ProfileController@index');
+   	Route::post('preferences/update_profile', 'Admin\ProfileController@edit');
+   	Route::get('preferences/discounts', 'Admin\DiscountsController@index');
+   	Route::post('preferences/add_discount', 'Admin\DiscountsController@create');
+   	Route::post('preferences/update_discount', 'Admin\DiscountsController@edit');
+   	Route::post('preferences/delete_discount', 'Admin\DiscountsController@destroy');
+   	Route::get('preferences/discounts/search', 'Admin\DiscountsController@search');
 
-	//Account
-	Route::get('/account', 'Admin\AccountController@index');
-	Route::post('/update_account', 'Admin\AccountController@edit');
+   	//Account
+   	Route::get('/account', 'Admin\AccountController@index');
+   	Route::post('/update_account', 'Admin\AccountController@edit');
 
-	//Timesheet
-	Route::get('timesheet', 'Admin\TimesheetController@index');
-	Route::post('timesheet/time_in', 'Admin\TimesheetController@time_in');
-	Route::get('timesheet/time_out', 'Admin\TimesheetController@time_out');
-	Route::get('timesheet/filter', 'Admin\TimesheetController@filter');
-	Route::get('timesheet/export', 'Admin\TimesheetController@export');
+   	//Timesheet
+   	Route::get('timesheet', 'Admin\TimesheetController@index');
+   	Route::post('timesheet/time_in', 'Admin\TimesheetController@time_in');
+   	Route::get('timesheet/time_out', 'Admin\TimesheetController@time_out');
+   	Route::get('timesheet/filter', 'Admin\TimesheetController@filter');
+   	Route::get('timesheet/export', 'Admin\TimesheetController@export');
    	
 });
 
-Route::group(['middleware' => ['staff']], function () {
+Route::group(['middleware' => ['staff', 'timeout']], function () {
 	//POS
 	Route::get('staff/sales', 'Staff\PointofSaleController@index');
-	Route::get('staff/sales/buttons', 'Staff\PointofSaleController@buttonload');
-	Route::post('staff/sales/member_cashpayment', 'Staff\PointofSaleController@member_cashpayment');
-	Route::post('staff/sales/member_loadpayment', 'Staff\PointofSaleController@member_loadpayment');
-	Route::get('staff/sales/member_autocomplete', 'Staff\PointofSaleController@member_autocomplete');
-	Route::post('staff/sales/guest_cashpayment', 'Staff\PointofSaleController@guest_cashpayment');
-	Route::post('staff/sales/member_reload', 'Staff\PointofSaleController@reload');
+   	Route::get('staff/sales/buttons', 'Staff\PointofSaleController@buttonload');
+   	Route::post('staff/sales/member_cashpayment', 'Staff\PointofSaleController@member_cashpayment');
+   	Route::post('staff/sales/member_loadpayment', 'Staff\PointofSaleController@member_loadpayment');
+   	Route::get('staff/sales/member_autocomplete', 'Staff\PointofSaleController@member_autocomplete');
+   	Route::post('staff/sales/guest_cashpayment', 'Staff\PointofSaleController@guest_cashpayment');
+   	Route::post('staff/sales/member_reload', 'Staff\PointofSaleController@reload');
 
-   	//Queueing
-   	Route::get('staff/queue', 'Staff\QueueController@index');
-   	Route::post('staff/queue/view_status', 'Staff\QueueController@viewstatus');
-   	Route::post('staff/queue/showdetails', 'Staff\QueueController@showdetails');
-   	Route::post('staff/queue/switch', 'Staff\QueueController@switch');
-
-	//Sales Logs
-	Route::get('staff/logs/sales', 'Staff\SalesLogsController@index');
+   	//Sales Logs
+   	Route::get('staff/logs/sales', 'Staff\SalesLogsController@index');
 	Route::get('staff/logs/sales/showdetails/{id}', 'Staff\SalesLogsController@showdetails');
 	Route::post('staff/logs/sales/delete_sales', 'Staff\SalesLogsController@destroy');
 	Route::get('staff/logs/sales/filter', 'Staff\SalesLogsController@filter');
@@ -138,26 +132,26 @@ Route::group(['middleware' => ['staff']], function () {
 	//Preferences
 	Route::get('staff/preferences/backup', 'Staff\BackupController@index');
 	Route::get('staff/backup/create', 'Staff\BackupController@create');
-   	Route::get('staff/backup/download/{file_name}', 'Staff\BackupController@download');
-	Route::get('staff/backup/delete/{file_name}', 'Staff\BackupController@delete');
-	Route::get('staff/preferences/backup/search', 'Staff\BackupController@search');
-	Route::get('staff/preferences/profile', 'Staff\ProfileController@index');
-	Route::post('staff/preferences/update_profile', 'Staff\ProfileController@edit');
-	Route::get('staff/preferences/discounts', 'Staff\DiscountsController@index');
-	Route::post('staff/preferences/add_discount', 'Staff\DiscountsController@create');
-	Route::post('staff/preferences/update_discount', 'Staff\DiscountsController@edit');
-	Route::post('staff/preferences/delete_discount', 'Staff\DiscountsController@destroy');
-	Route::get('staff/preferences/discounts/search', 'Staff\DiscountsController@search');
+    Route::get('staff/backup/download/{file_name}', 'Staff\BackupController@download');
+   	Route::get('staff/backup/delete/{file_name}', 'Staff\BackupController@delete');
+   	Route::get('staff/preferences/backup/search', 'Staff\BackupController@search');
+   	Route::get('staff/preferences/profile', 'Staff\ProfileController@index');
+   	Route::post('staff/preferences/update_profile', 'Staff\ProfileController@edit');
+   	Route::get('staff/preferences/discounts', 'Staff\DiscountsController@index');
+   	Route::post('staff/preferences/add_discount', 'Staff\DiscountsController@create');
+   	Route::post('staff/preferences/update_discount', 'Staff\DiscountsController@edit');
+   	Route::post('staff/preferences/delete_discount', 'Staff\DiscountsController@destroy');
+   	Route::get('staff/preferences/discounts/search', 'Staff\DiscountsController@search');
 
-	//Account
-	Route::get('staff/account', 'Staff\AccountController@index');
-	Route::post('staff/update_account', 'Staff\AccountController@edit');
+   	//Account
+   	Route::get('staff/account', 'Staff\AccountController@index');
+   	Route::post('staff/update_account', 'Staff\AccountController@edit');
 
-	//Timesheet
-	Route::get('staff/timesheet', 'Staff\TimesheetController@index');
-	Route::post('staff/timesheet/time_in', 'Staff\TimesheetController@time_in');
-	Route::get('staff/timesheet/time_out', 'Staff\TimesheetController@time_out');
-	Route::get('staff/timesheet/filter', 'Staff\TimesheetController@filter');
-	Route::get('staff/timesheet/export', 'Staff\TimesheetController@export');
+   	//Timesheet
+   	Route::get('staff/timesheet', 'Staff\TimesheetController@index');
+   	Route::post('staff/timesheet/time_in', 'Staff\TimesheetController@time_in');
+   	Route::get('staff/timesheet/time_out', 'Staff\TimesheetController@time_out');
+   	Route::get('staff/timesheet/filter', 'Staff\TimesheetController@filter');
+   	Route::get('staff/timesheet/export', 'Staff\TimesheetController@export');
 
 });
