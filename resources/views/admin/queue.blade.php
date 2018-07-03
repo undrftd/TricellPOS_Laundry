@@ -42,7 +42,7 @@ QUEUEING
       <tbody class="td_class">
         @foreach($queues as $queue)
         <tr>
-          <th scope="row">{{$loop->iteration + $skipped}}</th>
+          <th scope="row" class="td-center">{{$loop->iteration + $skipped}}</th>
           <td class="td-center">
           @if($queue->guest_id != 0)
             {{ $queue->guest->customer_name }}
@@ -50,7 +50,7 @@ QUEUEING
             {{ $queue->user->firstname . " " . $queue->user->lastname}}  
           @endif
           </td class="td-center">
-          <td class="td-center">
+          <td>
             <button type="button" class="btn btn-success switch-btn" data-id="{{$queue->id}}"><i class="material-icons md-18">
 power_settings_new
 </i></button>

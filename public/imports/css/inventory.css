@@ -19,6 +19,17 @@ body{
 
 }
 
+#search-btn.btn-outline-info{
+  
+    background-color: white !important;
+    
+}
+#search-btn.btn-outline-info:hover{
+    color: white !important !important;
+    background-color:#17a2b8 !important;
+    border-color: #17a2b8;
+}
+
 .td_class{
   background-color: #fcfcfc !important;
 }
@@ -64,7 +75,7 @@ font-size: 18px;
 
 
 #mysearch:focus + .input-group-addon {
-	z-index: 10;
+  z-index: 10;
 }
 
 
@@ -85,20 +96,25 @@ font-size: 18px;
 
 .memberstab.nav-tabs .nav-item.show .nav-link, .memberstab.nav-tabs .nav-link.active {
     color:  #3A539B !important;
-    background-color: #fefcfc !important;
-    border-color: #dee2e6 #dee2e6 #fcfcfc !important;
+    background-color: #fcfcfc !important;
+    border-color: #fcfcfc #fcfcfc #3A539B !important;
+    border-width: 1.5px !important;
     font-weight: bold !important;
+    border-radius: 0px !important;
 }
+
 
 .nav {
   padding-top: 2px;
 }
 
 .nav-tabs .nav-link:hover {
+    color:  #3A539B !important;
     background-color: #fcfcfc !important;
-    border-color: #dee2e6 #dee2e6 ##fcfcfc !important;
-    color:#3A539B!important;
+    border-color: #fcfcfc #fcfcfc #3A539B !important;
+    border-width: 1.5px !important;
     font-weight: bold !important;
+    border-radius: 0px !important;
 }
 
 #nav-tab {

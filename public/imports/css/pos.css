@@ -4,55 +4,55 @@ body{
 #member{
      display:none;
      border: 0.5px solid #d5dce2;
-     background-color: #e9ecef;
+     background-color: #c4ccd2 !important;
      margin-bottom: 0.5% !important;
 }
  #guest{
      display:none;
      border: 0.5px solid #d5dce2;
-     background-color: #e9ecef;
+     background-color: #c4ccd2 !important;
      margin-bottom: 0.5% !important;
 }
  #member-name{
      margin-left: 3rem !important;
      margin-top: -1.5rem;
      margin-bottom: 0.6rem;
-     color: #565656 !important;
+     color: #252525 !important
 }
  #date{
      margin-right: 1rem;
      margin-top: -2rem;
      margin-bottom: 0.6rem;
-     color: #565656 !important;
+     color: #252525 !important;
 }
  #date_range {
      float: right;
      margin-top: -2rem !important;
      margin-right: 8rem !important;
-     color: #565656 !important;
+     color: #252525 !important
 }
  #date_2{
      margin-left: 3rem !important;
      margin-top: -1.5rem;
      margin-bottom: 0.6rem;
-     color: #565656 !important;
+     color: #252525 !important
 }
  #date_range_2 {
      margin-left: 1rem;
      margin-top: 0.5rem;
-     color: #565656 !important;
+     color: #252525 !important
 }
  #faces{
      margin-left: 1rem;
      margin-top: 0.5rem;
-     color: #565656 !important;
+     color: #252525 !important
 }
  .select-box{
      border: 0.5px solid #848484 !important;
      margin-bottom: 0.5% !important;
 }
  .right{
-     background-color:#2c2c2d !important;
+     background-color:#212529 !important;
     /*display: flex !important;
      flex-wrap: wrap !important;
      */
@@ -102,7 +102,7 @@ body{
 }
  .full {
      width: 100% !important;
-     height: 55px !important;
+     height: 62px !important;
      font-weight: 600 !important;
 }
  .table td, .table th {
@@ -132,9 +132,14 @@ body{
      word-wrap: break-word !important;
      white-space: normal !important;
      color:white!important;
-     border-color:#778beb!important;
-     background-color: #778beb!important;
+     border-color:#2b2b2b!important;
+     background-color: #2b2b2b!important;
      border-radius: 1.5rem;
+}
+.btn.payment-btn:hover {
+    color: #2b2b2b!important;
+    border-color: #2b2b2b!important;
+    background-color: #c7c7c7 !important;
 }
  .btn.lpayment-btn {
      padding: 0.35rem 1.7944rem !important;
@@ -142,9 +147,14 @@ body{
      word-wrap: break-word !important;
      white-space: normal !important;
      color:white!important;
-     border-color:#ff793f!important;
-     background-color: #ff793f!important;
+     border-color:#2b2b2b!important;
+     background-color: #2b2b2b!important;
      border-radius: 1.5rem;
+}
+.btn.lpayment-btn:hover {
+     color: #2b2b2b!important;
+    border-color: #2b2b2b!important;
+    background-color: #c7c7c7 !important;
 }
  i#card{
      font-size: 1rem !important;
