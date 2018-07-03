@@ -57,6 +57,10 @@ class DashboardController extends Controller
        
         $yearsales = array($jan, $feb, $mar, $apr, $may, $jun, $jul, $aug, $sep, $oct, $nov, $dec);
 
+        //machines in use
+        $washer_use = DB::table('products')->where('switch', 1)->where('product_id', '<=', 12)->count();
+        $dryer_use = DB::table('products')->where('switch', 1)->where('product_id', '>', 12)->count();
+
         //donut sales by payment mode
         $cashpay = DB::table('sales')->selectRaw('ROUND(SUM(amount_due),2)')->where('payment_mode', 'cash')->get()->toArray();
         $cashpay = array_column($cashpay, 'ROUND(SUM(amount_due),2)');
@@ -90,7 +94,7 @@ class DashboardController extends Controller
 
         $topmembers = DB::table('sales')->selectRaw('DISTINCT (sales.member_id), CONCAT(users.firstname, " ", users.lastname) as name, SUM(amount_due) as amount_due')->groupBy('member_id')->join('users', 'sales.member_id', '=', 'users.id')->limit(10)->orderBy('amount_due', 'desc')->get()->toArray();
 
-        return view('admin.dashboard')->with(['newmembers' => $newmembers, 'reloadsales' => $reloadsales, 'sales' => $sales, 'cashpay' => json_encode($cashpay,JSON_NUMERIC_CHECK), 'loadpay' => json_encode($loadpay,JSON_NUMERIC_CHECK),'yearsales' => $yearsales,'salestoday' => $salestoday, 'topmembers' => $topmembers]);
+        return view('admin.dashboard')->with(['newmembers' => $newmembers, 'reloadsales' => $reloadsales, 'sales' => $sales, 'washer_use' => $washer_use, 'dryer_use' => $dryer_use, 'cashpay' => json_encode($cashpay,JSON_NUMERIC_CHECK), 'loadpay' => json_encode($loadpay,JSON_NUMERIC_CHECK),'yearsales' => $yearsales,'salestoday' => $salestoday, 'topmembers' => $topmembers]);
     }
 
 }

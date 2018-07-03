@@ -67,7 +67,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item {{ Request::segment(1)=='account' ? 'active' : '' }}" href="/account">My Account</a>
             <a class="dropdown-item {{ Request::segment(1)=='preferences' ? 'active' : '' }}" href="/preferences/profile">Preferences</a>
-            <a class="dropdown-item" href="#">Shutdown</a>
+            <a class="dropdown-item" href="/shutdown">Shutdown</a>
             <a class="dropdown-item" href="/logout">Logout</a>
 
         </li>

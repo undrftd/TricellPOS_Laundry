@@ -9,7 +9,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest',['except' => 'logout']);
+        $this->middleware('guest')->except(['logout', 'shutdown']);
     }
 
     public function index()
@@ -43,4 +43,10 @@ class LoginController extends Controller
         Auth::logout();
         return redirect('/');
     }
+
+    public function shutdown()
+    {
+        Auth::logout();
+        return redirect('/');
+    }  
 }

@@ -13,6 +13,7 @@
 
 Route::get('/', 'LoginController@index'); 
 Route::post('verify', 'LoginController@verify'); 
+Route::get('shutdown', 'LoginController@shutdown');
 Route::get('logout', 'LoginController@logout');
 
 Route::group(['middleware' => ['admin']], function () {
@@ -81,7 +82,7 @@ Route::group(['middleware' => ['admin']], function () {
 	//Preferences
 	Route::get('preferences/backup', 'Admin\BackupController@index');
 	Route::get('backup/create', 'Admin\BackupController@create');
-   Route::get('backup/download/{file_name}', 'Admin\BackupController@download');
+   	Route::get('backup/download/{file_name}', 'Admin\BackupController@download');
 	Route::get('backup/delete/{file_name}', 'Admin\BackupController@delete');
 	Route::get('preferences/backup/search', 'Admin\BackupController@search');
 	Route::get('preferences/profile', 'Admin\ProfileController@index');

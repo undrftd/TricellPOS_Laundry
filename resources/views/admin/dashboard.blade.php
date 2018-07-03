@@ -80,16 +80,8 @@ DASHBOARD
 
     <div class="row">
       <div class="col m-1 border" id="top-products">
-        <center><h6>Top Selling Products</h6></center>
-        <br>
-        <div class="row">
-                <div class="col">
-                  <h5 class="label-product">Product</h5>
-                </div>
-                <div class="col">
-                  <h5 class="label-total">Total</h5>
-                </div>
-              </div>
+        <canvas id="machines-used">
+        </canvas>
       </div> 
 
       <div class="col m-1 border" id="sales-payment">
@@ -134,6 +126,58 @@ DASHBOARD
 </div>
 
 <script type="text/javascript">
+   var bar_ctx = document.getElementById('machines-used').getContext('2d');
+   var washergradient = bar_ctx.createLinearGradient(0, 0, 0, 600);
+   washergradient.addColorStop(0, '#786AF1');
+   washergradient.addColorStop(1, '#66ca72');
+
+   var dryergradient = bar_ctx.createLinearGradient(0, 0, 0, 600);
+   dryergradient.addColorStop(0, '#786AF1');
+   dryergradient.addColorStop(1, '#eb5757');
+
+   var washer_use = <?php echo $washer_use; ?>;
+   var dryer_use = <?php echo $dryer_use; ?>;
+   new Chart(document.getElementById("machines-used"), {
+    type: 'bar',
+    data: {
+      labels: ["Washers", "Dryers"],
+      datasets: [
+        {
+          backgroundColor: [washergradient, dryergradient],
+          hoverBackgroundColor: [washergradient, dryergradient],
+          hoverBorderWidth: 2,
+          hoverBorderColor: [washergradient, dryergradient],
+          data: [washer_use,dryer_use]
+        }
+      ]
+    },
+    options: {
+      scales: {
+         yAxes: [{
+                  display: true,
+                  stacked: true,
+                  ticks: {
+                      min: 0, // minimum value
+                      max: 12 // maximum value
+                  }
+         }]
+      },
+      title: {
+         display: true,
+         text: 'Machines in Use',
+         fontSize: '16',
+         fontColor: 'black',
+         fontStyle: 'normal',
+         fontFamily: 'Montserrat',
+      },
+      responsive:true,
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+    }
+   });
+
    var bar_ctx = document.getElementById('payment-mode').getContext('2d');
    var cashgradient = bar_ctx.createLinearGradient(0, 0, 0, 600);
    cashgradient.addColorStop(0, '#7ef6b8');

@@ -60,7 +60,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item {{ Request::segment(2)=='account' ? 'active' : '' }}" href="/staff/account">My Account</a>
-            <a class="dropdown-item" href="#">Shutdown</a>
+            <a class="dropdown-item" href="/shutdown">Shutdown</a>
             <a class="dropdown-item" href="/logout">Logout</a>
 
         </li>

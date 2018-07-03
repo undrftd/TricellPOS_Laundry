@@ -138,7 +138,7 @@ power_settings_new
     {
       swal({
               title: "Success!",
-              text: "The customer has successfully completed his/her order!",
+              text: "The customer has completed his/her transaction!",
               icon: "success",
               button: "Close",
             });
