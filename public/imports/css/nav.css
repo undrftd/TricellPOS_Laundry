@@ -47,6 +47,13 @@ a.nav-link.active {
 .nav-item.dropdown.hello {
   margin-left: 630px!important;
 }
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #2d3f54 !important;
+    opacity: 0.8 !important;
+}
 /*.md5col{
   margin-left: 5px !important;*/
 /*pos css----------------*/

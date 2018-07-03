@@ -1,7 +1,7 @@
 @extends('staff_layout')
 
 @section('title')
-SALE
+BILLING
 @endsection
 
 @section('css')
@@ -113,9 +113,10 @@ SALE
             <table class="table">
               <tbody>
                 <tr>
-                  <th scope="row"  style="width: 73%" id="total"></th>
-                  <td><button type="button" class="btn btn-secondary float-right payment-btn">&#8369;</button><td>
-                  <button type="button" class="btn btn-secondary float-right lpayment-btn"><i class="material-icons" id="card">credit_card</i></button></td>
+                  <th scope="row"  style="width: 60%" id="total"></th>
+                  <td><button type="button" class="btn btn-secondary float-right payment-btn">Cash Payment</button></td>
+                  <td>
+                  <button type="button" class="btn btn-secondary  lpayment-btn">Load Payment</button></td>
                 </td></td>
               </tr>
             </tbody>
@@ -650,6 +651,7 @@ SALE
     if (type === "Member") 
     {
       $('.lpayment-btn').show();
+      $('.payment-btn').hide();
       if($("#member").not(':visible')) 
       {
         $("#member").show();
@@ -668,6 +670,7 @@ SALE
     else 
     {
       $('.lpayment-btn').hide();
+      $('.payment-btn').show();
       $("#member").hide();
       $("#guest").show();
       $('#membercardno').val('');

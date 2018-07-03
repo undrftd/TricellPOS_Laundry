@@ -77,6 +77,8 @@ SERVICES
       </tbody>
     </table>
 
+    {{$products->links()}}
+
     <!----end of modal---->
    <!----start of modal for EDIT---->
     <div class="modal fade edit_product" tabindex="-1" role="dialog">

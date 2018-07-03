@@ -66,15 +66,15 @@ DASHBOARD
    </div>
 
    <div class="row">
+      <div class="col m-1 border" id="member-walkin">
+        <!--  <h6>Member vs Walk-in</h6> -->
+         <canvas id="salestoday">
+         </canvas>  
+      </div>
       <div class="col m-1 border" id="sales-day">
          <!-- <h6>Sales for {{ \Carbon\Carbon::now()->format('Y')}}</h6> -->
          <canvas id="sales-for-year">
          </canvas>
-      </div>
-      <div class="col m-1 border" id="member-walkin">
-        <!--  <h6>Member vs Walk-in</h6> -->
-         <canvas id="member-vs-walkin">
-         </canvas>  
       </div>
    </div>
 
@@ -174,56 +174,64 @@ DASHBOARD
     }
    });
 
-   var bar_ctx = document.getElementById('member-vs-walkin').getContext('2d');
-   var bargradient = bar_ctx.createLinearGradient(0, 0, 0, 600);
-   bargradient.addColorStop(0, '#2dedc3');
-   bargradient.addColorStop(1, '#960de0');
-
-   var membersales = <?php echo $membersales ?>;
-   var guestsales = <?php echo $guestsales ?>;
- 
-   new Chart(document.getElementById("member-vs-walkin"), {
-    type: 'horizontalBar',
+   var year = '<?php echo \Carbon\Carbon::now()->format('F d, Y') ?>'
+   var areagradient = bar_ctx.createLinearGradient(0, 0, 0, 450);
+   areagradient.addColorStop(0, '#3BD0C0');
+  areagradient.addColorStop(1, '#FFFFFF');
+    new Chart(document.getElementById("salestoday"), {
+    type: 'line',
     data: {
-      labels: ["Member", "Walk-in"],
-      datasets: [
-        {
-          backgroundColor:  bargradient,
-          hoverBackgroundColor: bargradient,
-          hoverBorderWidth: 2,
-          hoverBorderColor: 'purple',
-          data: [membersales, guestsales]
-        }
-      ]
-    },
-    options: {
-      title: {
-         display: true,
-         text: 'Sales by Customer Type',
-         fontSize: '17',
-         fontColor: 'black',
-         fontStyle: 'normal',
-         fontFamily: 'Montserrat',
-      },
-      legend: {
-         display: false
-      },
-      scales: {
-         xAxes: [{
-            ticks: {
-               beginAtZero: true,
-            } 
-         }],
-         yAxes: [{
-            barThickness: 110,
-            ticks: {
-               beginAtZero: true,
-            } 
+         labels: ["10-11", "11-12", "12-1", "1-2", "2-3", "3-4", "4-5", "5-6", "6-7", "7-8",],
+         datasets: [{
+            data: <?php echo json_encode($salestoday)?>,
+            label: "",
+            borderWidth: 2,
+            borderColor: "#3e95cd",
+            fill: 'start',
+            backgroundColor:  areagradient,
          }]
       },
-      responsive:true,
-      maintainAspectRatio: false,
-    }
+      options: {
+         title: {
+            display: true,
+            text: 'Product Sales for Today - ' + year,
+            fontSize: '17',
+            fontColor: 'black',
+            fontStyle: 'normal',
+            fontFamily: 'Montserrat',
+         },
+         plugins: {
+            filler: {
+                propagate: true
+            }
+         },
+         elements: {
+           line: {
+               tension: 0
+           }
+         },
+         scales: {
+            yAxes: [{
+                  display: true,
+                  ticks: {
+                      beginAtZero: true,
+                      steps: 1000,
+                      stepValue: 5,
+                  }
+              }],
+            xAxes: [{
+               ticks: {
+                  autoSkip: false
+               }
+            }]
+         },
+         responsive:true,
+         maintainAspectRatio: false,
+         legend: {
+            display: false
+         },
+      },
+
    });
 
 

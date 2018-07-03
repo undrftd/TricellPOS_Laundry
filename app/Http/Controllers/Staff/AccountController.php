@@ -22,6 +22,7 @@ class AccountController extends Controller
     { 
         $staff = User::find(Auth::user()->id);
 
+        $rules = array(
         'firstname' => 'bail|required|regex:/^[\pL\s\-]+$/u|min:2',
         'lastname' => 'bail|required|regex:/^[\pL\s\-]+$/u|min:2',
         'address' => 'bail|required|regex:/^[#.0-9a-zA-Z\s,-]+$/|min:6',
@@ -30,6 +31,7 @@ class AccountController extends Controller
         'username' => "bail|required|min:5|unique:users,card_number,$staff->id",
         'password' => 'bail|required|min:8|confirmed',
         'password_confirmation' => 'required',
+        );
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())

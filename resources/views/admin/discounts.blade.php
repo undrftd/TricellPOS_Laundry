@@ -67,9 +67,9 @@ DISCOUNTS
       <tbody class="td_class">
         @foreach($discounts as $discount)
         <tr>
-          <td>{{$discount->discount_name}}</td>
-          <td>{{ucfirst($discount->discount_type)}}</td>
-          <td>
+          <td class="td-center">{{$discount->discount_name}}</td>
+          <td class="td-center">{{ucfirst($discount->discount_type)}}</td>
+          <td class="td-center">
             @if($discount->discount_type == 'percentage')  
                {{$discount->discount_value * 100 . '%'}}
             @else
