@@ -46,7 +46,14 @@ class LoginController extends Controller
 
     public function shutdown()
     {
-        Auth::logout();
-        return redirect('/');
+        //python script
+        // $id =  $request->product_id;
+        // $process = new Process("python machine{$id}.py");
+        // $process->run();
+
+        // if (!$process->isSuccessful()) {
+        //     throw new ProcessFailedException($process);
+        // }
+        return $this->logout();
     }  
 }
