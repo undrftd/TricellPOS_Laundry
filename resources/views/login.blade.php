@@ -28,7 +28,8 @@
       
       <div class ="container mx-auto"><!---first cont div-->
       
-      <p class="text-center logo_hp">TricellTech</p>
+      <p class="text-center logo_hp">TRICELL</p>
+      <p class="text-center logo1_hp">TECHNOLOGIES</p>
       <div class="row mx-auto">
         
         <form action="/verify" method="post" id="submit_form" class="mx-auto">

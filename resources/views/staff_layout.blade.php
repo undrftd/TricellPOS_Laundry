@@ -26,7 +26,7 @@
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a href="/" class="navbar-brand">+</a>
+    <a href="/" class="navbar-brand"><img style="height: 20px; margin-right: 20px;" src="{{ asset('imports/img/tricell_nav.png') }}" /></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar6">
         <span class="navbar-toggler-icon"></span>
     </button>
