@@ -58,7 +58,7 @@ class QueueController extends Controller
         {
             //python script
             // $id =  $request->product_id;
-            // $process = new Process("python machine{$id}.py");
+            // $process = new Process("/usr/bin/python2.7 /var/www/html/machine{$id}.py");
             // $process->run();
 
             // if (!$process->isSuccessful()) {
