@@ -55,6 +55,6 @@ class LoginController extends Controller
         //     throw new ProcessFailedException($process);
         // }
         Auth::logout();
-        // exec('/usr/bin/python2.7 /home/pi/shutdown.py');
+        exec('/usr/bin/python2.7 /home/pi/shutdown.py');
     }  
 }

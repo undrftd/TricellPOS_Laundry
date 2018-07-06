@@ -57,13 +57,8 @@ class QueueController extends Controller
         if($details->product->switch == 0)
         {
             //python script
-            // $id =  $request->product_id;
-            // $process = new Process("/usr/bin/python2.7 /var/www/html/machine{$id}.py");
-            // $process->run();
-
-            // if (!$process->isSuccessful()) {
-            //     throw new ProcessFailedException($process);
-            // }
+            $id =  $request->product_id;
+            passthru("sudo python /var/www/html/machine{$id}.py");
 
             $details->product->switch = 1;
             $details->product->used_by = $request->sales_id;
@@ -98,8 +93,6 @@ class QueueController extends Controller
         $details->product->save();
 
         $sumswitch = Sales_details::selectRaw('SUM(switch)')->where('sales_id', $request->sales_id)->value('SUM(switch)');
-
-        // dd($sumswitch);
 
         if(($countrow == $detailcount) && $sumswitch == 0)
         {

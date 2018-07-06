@@ -147,7 +147,8 @@ power_settings_new
   });
 
   $(document).on('click', '.switch__toggle', function() {
-    // e.preventDefault();
+    $(this).attr('disabled', true);
+
     var switches = $('.service').find($('[data-id="'+ $(this).attr('data-id') +'"]'));
     var attr = $(this).attr('checked');
     var id = $(this).attr('data-id');
@@ -168,6 +169,9 @@ power_settings_new
       {
           if($('#switch' + id).is(':checked'))
           {  
+            setTimeout(function() {
+              $('.switch__toggle').removeAttr('disabled');
+            }, 2000);
           }
           else
           {
@@ -180,7 +184,13 @@ power_settings_new
             window.location.reload();
           } 
       }
-
+      else
+      {
+        setTimeout(function() {
+          $('.switch__toggle').removeAttr('disabled');
+        }, 2000);
+      }
+      
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
       console.log(JSON.stringify(jqXHR));

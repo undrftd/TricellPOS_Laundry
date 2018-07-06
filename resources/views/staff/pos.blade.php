@@ -86,8 +86,8 @@ BILLING
           
           <div class="row" id="onchange">
             <select class="form-control form-control-sm select-box-role">
-              <option value="guest" selected>Walk-in</option>
-              <option value="member">Member</option>
+              <option value="member" selected>Member</option>
+              <option value="guest">Walk-in</option>
             </select>
           </div>
           
@@ -639,10 +639,10 @@ BILLING
   }
 
   $(document).ready(function(){
-    $('#member').hide();
-    $('#guest').show();
+    $('#member').show();
+    $('#guest').hide();
 
-    $('.lpayment-btn').hide();
+    $('.payment-btn').hide();
   });
 
   $(document).on('change', '.select-box-role',function() {

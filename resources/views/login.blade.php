@@ -39,7 +39,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text" id="log_user" ><i class="material-icons">person</i></div>
           </div>
-          <input type="text" class="form-control" id="log_user_form" name="username" placeholder="Username"required>
+          <input type="text" class="form-control" id="log_user_form" name="username" placeholder="Username"required autocomplete="off">
           </div><!--user-->
           
           <div class="input-group mb-2 mr-sm-2 log_pass_div "> <!--pass-->
