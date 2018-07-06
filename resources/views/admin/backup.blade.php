@@ -13,7 +13,7 @@ BACKUP
 </br>
 <div class="container">
 <!---title inventory-->
-<h3 class="title">Backup Administration</h3>
+<h3 class="title">Backup Administration </h3>
   <nav>
     <div class="nav nav-tabs justify-content-end memberstab" id="nav-tab" role="tablist">
       <a class="nav-item nav-link" id="nav-profile-tab"  href="/preferences/profile" role="tab" aria-controls="nav-profile" aria-selected="true">Profile
@@ -98,8 +98,7 @@ BACKUP
   </button>
 </div>
 <div class="modal-body">
-    <center>  <p> Are you sure you want to create a new backup? </p> </center>
-    <center>  <p> Note: Backups are automatically created daily at 12:00 AM.</p> </center>
+    <center>  <span> Are you sure you want to create a new backup? </span>  </center>
 </div> 
 
 <div class="modal-footer" id="modal-footer-create-backup">
