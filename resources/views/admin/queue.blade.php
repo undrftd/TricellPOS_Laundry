@@ -174,8 +174,13 @@ power_settings_new
             }, 2000);
           }
           else
-          {
+          {  
+            $('#switch'+id).addClass('used');
             $('#switch' + id).attr('disabled', true);
+
+            setTimeout(function() {
+              $('input[type=checkbox]').not('.used').not('#switch' + id).removeAttr('disabled');
+            }, 2000);
           } 
 
           if((data.countrow == data.detailcount) && (data.sumswitch == 0))
@@ -187,7 +192,7 @@ power_settings_new
       else
       {
         setTimeout(function() {
-          $('.switch__toggle').removeAttr('disabled');
+          $('.switch__toggle').not('.used').removeAttr('disabled');
         }, 2000);
       }
       

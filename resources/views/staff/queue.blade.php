@@ -34,9 +34,9 @@ QUEUEING
   @csrf
       <thead class ="th_css">
         <tr>
-      		  <th scope="col">Queue No.</th>
+            <th scope="col">Queue No.</th>
             <th scope="col">Customer Name</th>
-      		  <th scope="col">Switch</th>   
+            <th scope="col">Switch</th>   
         </tr>
       </thead>
       <tbody class="td_class">
@@ -86,7 +86,7 @@ power_settings_new
     </div>
 
     <!----end of modal---->
-	 <!----start of modal for add item---->
+   <!----start of modal for add item---->
     <div class="modal fade switch-modal" tabindex="-1" role="dialog">
      <div class="modal-dialog">
       <div class="modal-content">
@@ -99,7 +99,7 @@ power_settings_new
         
         <div class="modal-body mx-auto" id="detailsmodal">
       
-		    </div>
+        </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-close-modal" data-dismiss="modal">Close</button>
@@ -147,7 +147,7 @@ power_settings_new
   });
 
   $(document).on('click', '.switch__toggle', function() {
-    $(this).attr('disabled', true);
+    $('.switch__toggle').attr('disabled', true);
 
     var switches = $('.service').find($('[data-id="'+ $(this).attr('data-id') +'"]'));
     var attr = $(this).attr('checked');
@@ -174,8 +174,13 @@ power_settings_new
             }, 2000);
           }
           else
-          {
+          {  
+            $('#switch'+id).addClass('used');
             $('#switch' + id).attr('disabled', true);
+
+            setTimeout(function() {
+              $('input[type=checkbox]').not('.used').not('#switch' + id).removeAttr('disabled');
+            }, 2000);
           } 
 
           if((data.countrow == data.detailcount) && (data.sumswitch == 0))
@@ -187,10 +192,10 @@ power_settings_new
       else
       {
         setTimeout(function() {
-          $('.switch__toggle').removeAttr('disabled');
+          $('.switch__toggle').not('.used').removeAttr('disabled');
         }, 2000);
       }
-
+      
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
       console.log(JSON.stringify(jqXHR));
