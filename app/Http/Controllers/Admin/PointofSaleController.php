@@ -27,11 +27,16 @@ class PointofSaleController extends Controller
     public function index()
     {
         $allitems = Product::orderBy('product_name', 'asc')->get();
-    	$washers = Product::where('product_name', 'LIKE', 'Washer%')->orderBy('product_id', 'asc')->get();
-        $dryers = Product::where('product_name', 'LIKE', 'Dryer%')->orderBy('product_id', 'asc')->get();
+        $products = Product::orderBy('product_id', 'asc')->simplepaginate(32);
         $vat = DB::table('profile')->select('vat')->where('id', 1)->first();
         $discounts = Discount::all();
-    	return view('admin.pos')->with(['washers' => $washers, 'dryers' => $dryers, 'allitems' => $allitems, 'vat' => $vat, 'discounts' => $discounts]);
+    	return view('admin.pos')->with(['products' => $products, 'allitems' => $allitems, 'vat' => $vat, 'discounts' => $discounts]);
+    }
+
+    public function buttonload()
+    {
+        $products = Product::orderBy('product_id', 'asc')->simplepaginate(32);
+        return view('admin.posbuttons')->with(['products' => $products])->render();
     }
 
     public function member_autocomplete(Request $request)
