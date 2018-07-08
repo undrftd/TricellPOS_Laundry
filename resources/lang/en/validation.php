@@ -126,12 +126,6 @@ return [
     */
 
     'custom' => [
-        // 'firstname' => [
-        //     'regex' => 'The :attribute field should contain letters, spaces, and hyphens only.',
-        // ],
-        // 'lastname' => [
-        //     'regex' => 'The :attribute field should contain letters, spaces, and hyphens only.',
-        // ],
         'load' => [
             'numeric' => 'The :attribute field should contain numbers and periods only.',
         ],

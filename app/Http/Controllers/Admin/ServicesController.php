@@ -26,11 +26,41 @@ class ServicesController extends Controller
         return view('admin.dryers')->with('products', $products);
     }
 
+    public function product()
+    {
+        $products = Product::where('product_id', '>', '24')->orderBy('product_id', 'asc')->paginate(7);
+        return view('admin.products')->with('products', $products);  
+    }
+
+    public function create(Request $request)
+    {
+        $rules = array(
+        'product_name' => 'required|unique:products,product_name',
+        'price' => 'required|numeric',
+        'member_price' => 'required|numeric'
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        {
+            return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
+        }
+        else
+        {
+            $product = new Product;
+            $product->product_name = $request->product_name;
+            $product->price = $request->price;
+            $product->member_price = $request->member_price;
+            $product->save();
+        }
+    }
+
     public function edit(Request $request)
     {
     	$product = Product::find($request->product_id);
 
         $rules = array(
+        'product_name' => "required|unique:products,product_name,$product->product_id,product_id",
         'price' => 'required|numeric',
         'member_price' => 'required|numeric'
         );
@@ -43,66 +73,72 @@ class ServicesController extends Controller
         else
         {
             $product = Product::find($request->product_id);
+            $product->product_name = $request->product_name;
             $product->price = $request->price;
             $product->member_price = $request->member_price;
             $product->save();
         }	
     }
 
-    public function search(Request $request)
+    public function destroy(Request $request)
     {
-    	$search = $request->search;
+        $product = Product::find($request->product_id)->delete();
+    }
+
+    public function search_washer(Request $request)
+    {
+        $search = $request->search;
 
         if($search == "")
         {
-            return Redirect::to('inventory');
+            return Redirect::to('services/washers');
         }
         else
         {
-            $products = Product::where(function($query) use ($request, $search)
-                {
-                    $query->where('product_name', 'LIKE', '%' . $search . '%')->orWhere('product_desc', 'LIKE', '%' . $search . '%');
-                })->paginate(7);
+            $products = Product::where('product_id', '<=', '12')->where('product_name', 'LIKE', '%' . $search . '%')->paginate(7);
 
             $products->appends($request->only('search'));
             $count = $products->count();
-            $totalcount = Product::where(function($query) use ($request, $search)
-                {
-                    $query->where('product_name', 'LIKE', '%' . $search . '%')->orWhere('product_desc', 'LIKE', '%' . $search . '%');
-                })->count();
-            return view('admin.inventory')->with(['products' => $products, 'search' => $search, 'count' => $count, 'totalcount' => $totalcount]);  	
+            $totalcount = Product::where('product_id', '<=', '12')->where('product_name', 'LIKE', '%' . $search . '%')->count();
+            return view('admin.washers')->with(['products' => $products, 'search' => $search, 'count' => $count, 'totalcount' => $totalcount]);
         }
     }
 
-    
-
-    public function search_low(Request $request)
+    public function search_dryer(Request $request)
     {
         $search = $request->search;
-        $lowstock = DB::table('profile')->select('low_stock')->where('id', 1)->first();
 
         if($search == "")
         {
-            return Redirect::to('inventory/low_stocks');
+            return Redirect::to('services/dryers');
         }
         else
         {
-            $products = Product::where(function($query) use ($request, $search, $lowstock)
-                {
-                    $query->where('product_name', 'LIKE', '%' . $search . '%')->orWhere('product_desc', 'LIKE', '%' . $search . '%');})->where(function($query) use ($request, $search, $lowstock)
-                {
-                    $query->where('product_qty', '<=', $lowstock->low_stock);
-                })->paginate(7);
+            $products = Product::where('product_id', '<=', '24')->where('product_id', '>=', '13')->where('product_name', 'LIKE', '%' . $search . '%')->paginate(7);
 
             $products->appends($request->only('search'));
             $count = $products->count();
-            $totalcount = Product::where(function($query) use ($request, $search, $lowstock)
-                {
-                    $query->where('product_name', 'LIKE', '%' . $search . '%')->orWhere('product_desc', 'LIKE', '%' . $search . '%');})->where(function($query) use ($request, $search, $lowstock)
-                {
-                    $query->where('product_qty', '<=', $lowstock->low_stock);
-                })->count();
-            return view('admin.inventorylow')->with(['products' => $products, 'search' => $search, 'count' => $count, 'totalcount' => $totalcount]);   
+            $totalcount = Product::where('product_id', '<=', '24')->where('product_id', '>=', '13')->where('product_name', 'LIKE', '%' . $search . '%')->count();
+            return view('admin.dryers')->with(['products' => $products, 'search' => $search, 'count' => $count, 'totalcount' => $totalcount]);
+        }
+    }
+
+    public function search_product(Request $request)
+    {
+        $search = $request->search;
+
+        if($search == "")
+        {
+            return Redirect::to('services/products');
+        }
+        else
+        {
+            $products = Product::where('product_id', '>', '24')->where('product_name', 'LIKE', '%' . $search . '%')->paginate(7);
+
+            $products->appends($request->only('search'));
+            $count = $products->count();
+            $totalcount = Product::where('product_id', '>', '24')->where('product_name', 'LIKE', '%' . $search . '%')->count();
+            return view('admin.products')->with(['products' => $products, 'search' => $search, 'count' => $count, 'totalcount' => $totalcount]);
         }
     }
 }

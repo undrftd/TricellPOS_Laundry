@@ -52,8 +52,13 @@ Route::group(['middleware' => ['admin']], function () {
 	//Services
 	Route::get('services/washers', 'Admin\ServicesController@index');
 	Route::get('services/dryers', 'Admin\ServicesController@dryer');
+	Route::get('services/products', 'Admin\ServicesController@product');
+	Route::post('services/add_service', 'Admin\ServicesController@create');
 	Route::post('services/update_service', 'Admin\ServicesController@edit');
-	Route::get('inventory/low_stocks', 'Admin\ServicesController@lowstocks');
+	Route::post('services/delete_service', 'Admin\ServicesController@destroy');
+	Route::get('services/search_washer', 'Admin\ServicesController@search_washer');
+	Route::get('services/search_dryer', 'Admin\ServicesController@search_dryer');
+	Route::get('services/search_product', 'Admin\ServicesController@search_product');
 	Route::get('inventory/healthy_stocks', 'Admin\ServicesController@healthystocks');
 	
 	//Accounts - Member

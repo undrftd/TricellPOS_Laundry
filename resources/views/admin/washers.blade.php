@@ -19,6 +19,7 @@ SERVICES
       
       <a class="nav-item nav-link active " id="nav-profile-tab" href="/services/washers" role="tab" aria-controls="nav-profile" aria-selected="true">Washers
       <a class="nav-item nav-link" id="nav-discount-tab"  href="/services/dryers" role="tab" aria-controls="nav-discount" aria-selected="false">Dryers</a>
+      <a class="nav-item nav-link" id="nav-discount-tab"  href="/services/products" role="tab" aria-controls="nav-discount" aria-selected="false">Products</a>
         
       </div>
     </nav>
@@ -26,14 +27,14 @@ SERVICES
     <div class="col-md-8">
     </div>
     <div class="col-md-4">
-      <form class="form ml-auto" action="/inventory/search" method="GET">
-			<div class="input-group">
-    			<input class="form-control" name="search" type="text" placeholder="Search" aria-label="Search" style="padding-left: 20px; border-radius: 40px;" id="product-search">
-    			<div class="input-group-addon" style="margin-left: -50px; z-index: 3; border-radius: 40px; background-color: transparent; border:none;">
-    				<button class="btn btn-outline-info btn-sm" type="submit" style="border-radius: 100px;" id="search-btn"><i class="material-icons">search</i></button>
-    			</div>
-			</div>
-		  </form>
+      <form class="form ml-auto" action="/services/search_washer" method="GET">
+      <div class="input-group">
+          <input class="form-control" name="search" type="text" placeholder="Search" aria-label="Search" style="padding-left: 20px; border-radius: 40px;" id="product-search">
+          <div class="input-group-addon" style="margin-left: -50px; z-index: 3; border-radius: 40px; background-color: transparent; border:none;">
+            <button class="btn btn-outline-info btn-sm" type="submit" style="border-radius: 100px;" id="search-btn"><i class="material-icons">search</i></button>
+          </div>
+      </div>
+      </form>
     </div>
 </div>
 
@@ -70,7 +71,7 @@ SERVICES
           <td class="td-center">₱ {{$product->price}}</td>
           <td class="td-center">₱ {{$product->member_price}}</td>
           <td>
-            <button type="button" id="edit-product" class="btn btn-primary edit-btn" data-toggle="modal" data-target=".edit_product" data-id="{{$product->product_id}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}"><i class="material-icons md-18">mode_edit</i></button>
+            <button type="button" id="edit-product" class="btn btn-primary edit-btn" data-toggle="modal" data-target=".edit_product" data-id="{{$product->product_id}}" data-productname="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}"><i class="material-icons md-18">mode_edit</i></button>
         </tr>
         @endforeach
 
@@ -81,7 +82,7 @@ SERVICES
 
     <!----end of modal---->
    <!----start of modal for EDIT---->
-    <div class="modal fade edit_product" tabindex="-1" role="dialog">
+  <div class="modal fade edit_product" tabindex="-1" role="dialog">
    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -94,6 +95,7 @@ SERVICES
     <form class="nosubmitform">
     <br>
       <input type="hidden" name="product_id" id="product-id-edit">
+      <input type="hidden" name="prodname" id="product-prodname-edit">
 		  <div class="form-group row mx-auto">
           <label for="price" class="col-form-label col-md-4 modal-address">Price:</label>
           <div class="col-md-8">
@@ -165,6 +167,7 @@ $('.edit_product').on('hide.bs.modal', function(){
 //edit product
 $(document).on('click', '#edit-product', function() {
   $('#product-id-edit').val($(this).data('id'));    
+  $('#product-prodname-edit').val($(this).data('productname')); 
   $("#product-price-edit").val($(this).data('price'));
   $("#product-memprice-edit").val($(this).data('memprice'));
 });
@@ -176,6 +179,7 @@ $.ajax({
   data: {
           '_token': $('input[name=_token]').val(),
           'product_id': $("#product-id-edit").val(),
+          'product_name': $("#product-prodname-edit").val(),
           'price': $("#product-price-edit").val(),
           'member_price': $("#product-memprice-edit").val(),
         },
