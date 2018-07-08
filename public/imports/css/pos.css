@@ -102,7 +102,7 @@ body{
 }
  .full {
      width: 100% !important;
-     height: 56px !important;
+     height: 55px !important;
      font-weight: 600 !important;
 }
  .table td, .table th {
@@ -352,7 +352,7 @@ blink{animation: blink 1s infinite;}
     }
 }
 .healthy-button{
-    padding: 1.2rem 0.5rem !important;
+    padding: 0.8rem 0.5rem !important;
 }
 .btn.delete{
      padding: 0 !important;
