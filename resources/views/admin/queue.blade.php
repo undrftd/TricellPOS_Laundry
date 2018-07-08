@@ -147,7 +147,7 @@ power_settings_new
   });
 
   $(document).on('click', '.switch__toggle', function() {
-    $(this).attr('disabled', true);
+    $('.switch__toggle').attr('disabled', true);
 
     var switches = $('.service').find($('[data-id="'+ $(this).attr('data-id') +'"]'));
     var attr = $(this).attr('checked');

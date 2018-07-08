@@ -44,8 +44,8 @@ class ProfileController extends Controller
     		'email' => $request->email,
     		'tin' => $request->tin,
     		'vat' => $request->vat,
-            'washertimer' => $request->washer_timer,
-            'dryertimer' => $request->dryer_timer
+            'washer_timer' => $request->washer_timer,
+            'dryer_timer' => $request->dryer_timer
     		]);
         }
     }

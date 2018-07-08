@@ -82,6 +82,12 @@ class PointofSaleController extends Controller
         for($i= 0; $i < $count; $i++){
             $y=0;
             $product = Product::find($itemsBought[$i][$y]);
+
+            if($product->product_id > 24)
+            {
+                $product->product_qty =  $product->product_qty - $itemsBought[$i][++$y];   
+            }
+
             $product->save();
         }
     }
@@ -156,6 +162,11 @@ class PointofSaleController extends Controller
         for($i= 0; $i < $count; $i++){
             $y=0;
             $product = Product::find($itemsBought[$i][$y]);
+            if($product->product_id > 24)
+            {
+                $product->product_qty =  $product->product_qty - $itemsBought[$i][++$y];   
+            }
+            
             $product->save();
         }
     }

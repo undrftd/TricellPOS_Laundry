@@ -141,6 +141,14 @@ Route::group(['middleware' => ['staff']], function () {
 	Route::post('staff/logs/reload/delete_reload', 'Staff\ReloadLogsController@destroy');
 	Route::get('staff/logs/reload/export', 'Staff\ReloadLogsController@export');
 
+	//Accounts - Member
+	Route::get('/staff/accounts/members', 'Staff\MemberAccountsController@index');
+	Route::post('/staff/accounts/update_member', 'Staff\MemberAccountsController@edit');
+	Route::post('/staff/accounts/delete_member', 'Staff\MemberAccountsController@destroy');
+	Route::post('/staff/accounts/add_member', 'Staff\MemberAccountsController@create');
+	Route::post('/staff/accounts/reload_member', 'Staff\MemberAccountsController@reload');
+	Route::get('/staff/accounts/search_member', 'Staff\MemberAccountsController@search');
+
 	//Preferences
 	Route::get('staff/preferences/backup', 'Staff\BackupController@index');
 	Route::get('staff/backup/create', 'Staff\BackupController@create');

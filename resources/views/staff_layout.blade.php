@@ -47,6 +47,9 @@
                 <a class="dropdown-item {{ Request::segment(3)=='reload' ? 'active' : '' }}" href="/staff/logs/reload">Reload</a>
           </li>
           <li class="nav-item">
+           <a class="nav-link {{ Request::segment(2)=='accounts' ? 'active' : '' }}" href="/staff/accounts/members">ACCOUNTS</a>
+         </li>
+          <li class="nav-item">
            <a class="nav-link {{ Request::segment(2)=='timesheet' ? 'active' : '' }}" href="/staff/timesheet">TIMESHEET</a>
          </li>
           <li class="nav-item">

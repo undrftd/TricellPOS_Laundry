@@ -27,11 +27,16 @@ class PointofSaleController extends Controller
     public function index()
     {
         $allitems = Product::orderBy('product_name', 'asc')->get();
-        $washers = Product::where('product_name', 'LIKE', 'Washer%')->orderBy('product_id', 'asc')->get();
-        $dryers = Product::where('product_name', 'LIKE', 'Dryer%')->orderBy('product_id', 'asc')->get();
+        $products = Product::orderBy('product_id', 'asc')->simplepaginate(32);
         $vat = DB::table('profile')->select('vat')->where('id', 1)->first();
         $discounts = Discount::all();
-        return view('staff.pos')->with(['washers' => $washers, 'dryers' => $dryers, 'allitems' => $allitems, 'vat' => $vat, 'discounts' => $discounts]);
+        return view('staff.pos')->with(['products' => $products, 'allitems' => $allitems, 'vat' => $vat, 'discounts' => $discounts]);
+    }
+
+    public function buttonload()
+    {
+        $products = Product::orderBy('product_id', 'asc')->simplepaginate(32);
+        return view('staff.posbuttons')->with(['products' => $products])->render();
     }
 
     public function member_autocomplete(Request $request)
@@ -77,6 +82,12 @@ class PointofSaleController extends Controller
         for($i= 0; $i < $count; $i++){
             $y=0;
             $product = Product::find($itemsBought[$i][$y]);
+
+            if($product->product_id > 24)
+            {
+                $product->product_qty =  $product->product_qty - $itemsBought[$i][++$y];   
+            }
+
             $product->save();
         }
     }
@@ -151,6 +162,11 @@ class PointofSaleController extends Controller
         for($i= 0; $i < $count; $i++){
             $y=0;
             $product = Product::find($itemsBought[$i][$y]);
+            if($product->product_id > 24)
+            {
+                $product->product_qty =  $product->product_qty - $itemsBought[$i][++$y];   
+            }
+            
             $product->save();
         }
     }

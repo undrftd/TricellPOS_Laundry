@@ -63,6 +63,7 @@ SERVICES
           <th scope="col">Name</th>
           <th scope="col">Price</th>
           <th scope="col">Member's Price</th>
+          <th scope="col">Quantity</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -73,6 +74,7 @@ SERVICES
           <th scope="row" class="td-center">{{str_limit($product->product_name,40)}}</th>
           <td class="td-center">₱ {{$product->price}}</td>
           <td class="td-center">₱ {{$product->member_price}}</td>
+          <td class="td-center">{{$product->product_qty}}</td>
           <td>
             <button type="button" id="edit-product" class="btn btn-primary edit-btn" data-toggle="modal" data-target=".edit_product" data-id="{{$product->product_id}}" data-productname="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}"><i class="material-icons md-18">mode_edit</i></button>
             <button type="button" id="delete-product" class="btn btn-danger del-btn" data-toggle="modal" data-target=".delete_product" data-id="{{$product->product_id}}" data-productname="{{$product->product_name}}"><i class="material-icons md-18">delete</i></button>

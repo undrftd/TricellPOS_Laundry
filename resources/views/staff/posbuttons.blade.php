@@ -1,26 +1,110 @@
-<h5 class="pos-label">WASHERS</h5>
-@foreach($washers->chunk(4) as $chunk)
+@foreach($products->chunk(4) as $chunk)
+  @if($chunk->count() == 4) 
     <div class="row pad">
-      @foreach($chunk as $washer)
+      @foreach($chunk as $product)
+      @if($product->product_qty <= 10 && $product->product_qty > 0 && $product->product_id > 24)
         <div class="col-lg-3 ">
-          <div class="btn btn-sm btn-info full pos-button healthy-button" data-id="{{$washer->product_id}}" data-description="{{$washer->product_name}}" data-price="{{$washer->price}}" data-memprice="{{$washer->member_price}}" data-qty="{{$washer->product_qty}}">
-            {{str_limit($washer->product_name,15)}}
+          <div class="btn btn-sm btn-info full pos-button <?php if($product->product_id <=24 && $product->product_id >=13) { echo "dryer"; }else if($product->product_id > 24) { echo "product"; } ?> healthy-button" data-id="{{$product->product_id}}" data-description="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}" data-qty="{{$product->product_qty}}">
+            {{str_limit($product->product_name,15)}}
+            <span class="low_stock"> <br> Low Stock </span>
           </div>
         </div>
+      @elseif($product->product_qty == 0)
+      <div class="col-lg-3">
+        <div class="btn btn-sm btn-info full pos-button disabled <?php if($product->product_id <=24 && $product->product_id >=13) { echo "dryer"; }else if($product->product_id > 24) {echo "product"; } ?> healthy-button" data-id="{{$product->product_id}}" data-description="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}" data-qty="{{$product->product_qty}}">
+          {{str_limit($product->product_name,15)}}
+          <span> <br> No Stock </span>
+        </div>
+      </div>
+      @else
+      <div class="col-lg-3">
+        <div class="btn btn-sm btn-info full pos-button <?php if($product->product_id <=24 && $product->product_id >=13) { echo "dryer"; }else if($product->product_id > 24) {echo "product"; } ?> healthy-button" data-id="{{$product->product_id}}" data-description="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}" data-qty="{{$product->product_qty}}">
+          {{str_limit($product->product_name,15)}}
+        </div>
+      </div>
+      @endif
       @endforeach
     </div>
+  @elseif($chunk->count() == 3) 
+    <div class="row pad">
+      @foreach($chunk as $product)
+      @if($product->product_qty <= 10 && $product->product_qty > 0 && $product->product_id > 24)
+        <div class="col-lg-4 ">
+          <div class="btn btn-sm btn-info full pos-button <?php if($product->product_id <=24 && $product->product_id >=13) { echo "dryer"; }else if($product->product_id > 24) { echo "product"; } ?> healthy-button" data-id="{{$product->product_id}}" data-description="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}" data-qty="{{$product->product_qty}}">
+            {{str_limit($product->product_name,15)}}
+            <span class="low_stock"> <br> Low Stock </span>
+          </div>
+        </div>
+      @elseif($product->product_qty == 0)
+      <div class="col-lg-4">
+        <div class="btn btn-sm btn-info full pos-button disabled <?php if($product->product_id <=24 && $product->product_id >=13) { echo "dryer"; }else if($product->product_id > 24) {echo "product"; } ?> healthy-button" data-id="{{$product->product_id}}" data-description="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}" data-qty="{{$product->product_qty}}">
+          {{str_limit($product->product_name,15)}}
+          <span> <br> No Stock </span>
+        </div>
+      </div>
+      @else
+      <div class="col-lg-4">
+        <div class="btn btn-sm btn-info full pos-button <?php if($product->product_id <=24 && $product->product_id >=13) { echo "dryer"; }else if($product->product_id > 24) {echo "product"; } ?> healthy-button" data-id="{{$product->product_id}}" data-description="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}" data-qty="{{$product->product_qty}}">
+          {{str_limit($product->product_name,15)}}
+        </div>
+      </div>
+      @endif
+      @endforeach
+    </div>
+  @elseif($chunk->count() == 2) 
+    <div class="row pad">
+      @foreach($chunk as $product)
+      @if($product->product_qty <= 10 && $product->product_qty > 0 && $product->product_id > 24)
+        <div class="col-lg-6 ">
+          <div class="btn btn-sm btn-info full pos-button <?php if($product->product_id <=24 && $product->product_id >=13) { echo "dryer"; }else if($product->product_id > 24) { echo "product"; } ?> healthy-button" data-id="{{$product->product_id}}" data-description="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}" data-qty="{{$product->product_qty}}">
+            {{str_limit($product->product_name,15)}}
+            <span class="low_stock"> <br> Low Stock </span>
+          </div>
+        </div>
+      @elseif($product->product_qty == 0)
+      <div class="col-lg-6">
+        <div class="btn btn-sm btn-info full pos-button disabled <?php if($product->product_id <=24 && $product->product_id >=13) { echo "dryer"; }else if($product->product_id > 24) {echo "product"; } ?> healthy-button" data-id="{{$product->product_id}}" data-description="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}" data-qty="{{$product->product_qty}}">
+          {{str_limit($product->product_name,15)}}
+          <span> <br> No Stock </span>
+        </div>
+      </div>
+      @else
+      <div class="col-lg-6">
+        <div class="btn btn-sm btn-info full pos-button <?php if($product->product_id <=24 && $product->product_id >=13) { echo "dryer"; }else if($product->product_id > 24) {echo "product"; } ?> healthy-button" data-id="{{$product->product_id}}" data-description="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}" data-qty="{{$product->product_qty}}">
+          {{str_limit($product->product_name,15)}}
+        </div>
+      </div>
+      @endif
+      @endforeach
+    </div>
+  @elseif($chunk->count() == 1) 
+    <div class="row pad">
+      @foreach($chunk as $product)
+      @if($product->product_qty <= 10 && $product->product_qty > 0 && $product->product_id > 24)
+        <div class="col-lg-12 ">
+          <div class="btn btn-sm btn-info full pos-button <?php if($product->product_id <=24 && $product->product_id >=13) { echo "dryer"; }else if($product->product_id > 24) { echo "product"; } ?> healthy-button" data-id="{{$product->product_id}}" data-description="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}" data-qty="{{$product->product_qty}}">
+            {{str_limit($product->product_name,15)}}
+            <span class="low_stock"> <br> Low Stock </span>
+          </div>
+        </div>
+      @elseif($product->product_qty == 0)
+      <div class="col-lg-12">
+        <div class="btn btn-sm btn-info full pos-button disabled <?php if($product->product_id <=24 && $product->product_id >=13) { echo "dryer"; }else if($product->product_id > 24) {echo "product"; } ?> healthy-button" data-id="{{$product->product_id}}" data-description="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}" data-qty="{{$product->product_qty}}">
+          {{str_limit($product->product_name,15)}}
+          <span> <br> No Stock </span>
+        </div>
+      </div>
+      @else
+      <div class="col-lg-12">
+        <div class="btn btn-sm btn-info full pos-button <?php if($product->product_id <=24 && $product->product_id >=13) { echo "dryer"; }else if($product->product_id > 24) {echo "product"; } ?> healthy-button" data-id="{{$product->product_id}}" data-description="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}" data-qty="{{$product->product_qty}}">
+          {{str_limit($product->product_name,15)}}
+        </div>
+      </div>
+      @endif
+      @endforeach
+    </div>
+  @endif
 @endforeach 
 
-<h5 class="pos-label">DRYERS</h5>
-@foreach($dryers->chunk(4) as $chunk)
-    <div class="row pad">
-      @foreach($chunk as $dryer)
-        <div class="col-lg-3 ">
-          <div class="btn btn-sm btn-info full pos-button dryer healthy-button" data-id="{{$dryer->product_id}}" data-description="{{$dryer->product_name}}" data-price="{{$dryer->price}}" data-memprice="{{$dryer->member_price}}" data-qty="{{$dryer->product_qty}}">
-            {{str_limit($dryer->product_name,15)}}
-          </div>
-        </div>
-      @endforeach
-    </div>
-@endforeach 
 <br>
+{{$products->links()}}

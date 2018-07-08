@@ -351,7 +351,7 @@ BILLING
         <div id="mirror-pos" hidden="hidden">
           @foreach($allitems as $item)
             <div class="col-lg-12">
-              <div class="btn btn-sm btn-info full mirror-pos-button" data-id="{{$item->product_id}}" data-description="{{$item->product_name}}" data-price="{{$item->price}}" data-memprice="{{$item->member_price}}">{{str_limit($item->product_name,10)}}</div>
+              <div class="btn btn-sm btn-info full mirror-pos-button" data-id="{{$item->product_id}}" data-description="{{$item->product_name}}" data-price="{{$item->price}}" data-memprice="{{$item->member_price}}" data-qty="{{$item->product_qty}}">{{str_limit($item->product_name,10)}}</div>
             </div>
           @endforeach
         </div>
@@ -561,26 +561,30 @@ BILLING
     var price = parseFloat(whichtr.find($('.itemprice')).text());
 
     var desc = whichtr.find($('.description')).text();
-    // var dataqty = $('#mirror-pos').find($('[data-description="'+ desc +'"]')).attr('data-qty');
+    var dataqty = $('#mirror-pos').find($('[data-description="'+ desc +'"]')).attr('data-qty');
+    var dataid = $('#mirror-pos').find($('[data-description="'+ desc +'"]')).attr('data-id');
 
-    // if(parseFloat($(this).val()) > dataqty)
-    // {
-    //   $(this).val(dataqty);
-    //   var newqty = $(this).val()
-    //   subtotal = newqty * price;
-      
-    //   whichtr.find($('.itemsubtotal')).text(subtotal.toFixed(2));
-    //   update_total();
-    //   compute_discount();
-    // }
-    // else
-    // {
+    if(dataid > 24)
+    {
+      if(parseFloat($(this).val()) > dataqty)
+      {
+        $(this).val(dataqty);
+        var newqty = $(this).val()
+        subtotal = newqty * price;
+        
+        whichtr.find($('.itemsubtotal')).text(subtotal.toFixed(2));
+        update_total();
+        compute_discount();
+      }
+    }
+    else
+    {
       subtotal = qty * price;
 
       whichtr.find($('.itemsubtotal')).text(subtotal.toFixed(2));
       update_total();
       compute_discount();
-    // }
+    }
   });
 
   $(document).ready(function(){
