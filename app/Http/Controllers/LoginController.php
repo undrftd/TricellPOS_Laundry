@@ -45,16 +45,9 @@ class LoginController extends Controller
     }
 
     public function shutdown()
-    {
-        //python script
-        // $id =  $request->product_id;
-        // $process = new Process("/usr/bin/python2.7 /var/www/html/machine{$id}.py");
-        // $process->run();
-
-        // if (!$process->isSuccessful()) {
-        //     throw new ProcessFailedException($process);
-        // }
+    {   
         Auth::logout();
-        exec('/usr/bin/python2.7 /home/pi/shutdown.py');
+        //python script
+        passthru("sudo python /var/www/html/shutdown.py");
     }  
 }
