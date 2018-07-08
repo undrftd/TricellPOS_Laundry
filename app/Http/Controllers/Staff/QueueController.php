@@ -57,8 +57,8 @@ class QueueController extends Controller
         if($details->product->switch == 0)
         {
             //python script
-            $id =  $request->product_id;
-            passthru("sudo python /var/www/html/machine{$id}.py");
+            // $id =  $request->product_id;
+            // passthru("sudo python /var/www/html/machine{$id}.py");
 
             $details->product->switch = 1;
             $details->product->used_by = $request->sales_id;
@@ -80,6 +80,11 @@ class QueueController extends Controller
             $details->product->used_by = 0; 
             $details->switch = 0; 
 
+            if($details->used == $details->used) 
+            {
+                $details->isUsed = 1;
+            }
+
             foreach($detailrows as $row)
             {
                 if($row->quantity == $row->used)
@@ -94,8 +99,6 @@ class QueueController extends Controller
 
         $sumswitch = Sales_details::selectRaw('SUM(switch)')->where('sales_id', $request->sales_id)->value('SUM(switch)');
 
-        // dd($sumswitch);
-
         if(($countrow == $detailcount) && $sumswitch == 0)
         {
             $details->sale->finished_ind = 'Y'; 
@@ -104,6 +107,6 @@ class QueueController extends Controller
         $details->sale->save();  
 
 
-        return Response::json(array('used' => $details->used, 'quantity' => $details->quantity, 'detailcount' => $detailcount, 'countrow' => $countrow, 'sumswitch' => $sumswitch));
+        return Response::json(array('used' => $details->used, 'quantity' => $details->quantity, 'isUsed' => $details->isUsed, 'detailcount' => $detailcount, 'countrow' => $countrow, 'sumswitch' => $sumswitch));
     }
 }

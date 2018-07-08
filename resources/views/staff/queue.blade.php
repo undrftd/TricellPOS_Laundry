@@ -170,16 +170,16 @@ power_settings_new
           if($('#switch' + id).is(':checked'))
           {  
             setTimeout(function() {
-              $('.switch__toggle').removeAttr('disabled');
+              $('input[type=checkbox]').not('[data-isUsed="1"]').removeAttr('disabled');
             }, 2000);
           }
           else
           {  
-            $('#switch'+id).addClass('used');
+            $('#switch' + id).attr('data-isUsed', data.isUsed);
             $('#switch' + id).attr('disabled', true);
 
             setTimeout(function() {
-              $('input[type=checkbox]').not('.used').not('#switch' + id).removeAttr('disabled');
+              $('input[type=checkbox]').not('[data-isUsed="1"]').not('#switch' + id).removeAttr('disabled');
             }, 2000);
           } 
 
@@ -192,10 +192,9 @@ power_settings_new
       else
       {
         setTimeout(function() {
-          $('.switch__toggle').not('.used').removeAttr('disabled');
+          $('input[type=checkbox]').not('[data-isUsed="1"]').removeAttr('disabled');
         }, 2000);
       }
-      
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
       console.log(JSON.stringify(jqXHR));

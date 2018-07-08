@@ -80,6 +80,11 @@ class QueueController extends Controller
             $details->product->used_by = 0; 
             $details->switch = 0; 
 
+            if($details->used == $details->used) 
+            {
+                $details->isUsed = 1;
+            }
+
             foreach($detailrows as $row)
             {
                 if($row->quantity == $row->used)
@@ -102,6 +107,6 @@ class QueueController extends Controller
         $details->sale->save();  
 
 
-        return Response::json(array('used' => $details->used, 'quantity' => $details->quantity, 'detailcount' => $detailcount, 'countrow' => $countrow, 'sumswitch' => $sumswitch));
+        return Response::json(array('used' => $details->used, 'quantity' => $details->quantity, 'isUsed' => $details->isUsed, 'detailcount' => $detailcount, 'countrow' => $countrow, 'sumswitch' => $sumswitch));
     }
 }
