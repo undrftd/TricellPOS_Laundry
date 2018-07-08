@@ -36,6 +36,7 @@ class ServicesController extends Controller
     {
         $rules = array(
         'product_name' => 'required|unique:products,product_name',
+        'product_qty' => 'required|integer',
         'price' => 'required|numeric',
         'member_price' => 'required|numeric'
         );
@@ -49,6 +50,7 @@ class ServicesController extends Controller
         {
             $product = new Product;
             $product->product_name = $request->product_name;
+            $product->product_qty = $request->product_qty;
             $product->price = $request->price;
             $product->member_price = $request->member_price;
             $product->save();
@@ -61,6 +63,7 @@ class ServicesController extends Controller
 
         $rules = array(
         'product_name' => "required|unique:products,product_name,$product->product_id,product_id",
+        'product_qty' => 'required|integer',
         'price' => 'required|numeric',
         'member_price' => 'required|numeric'
         );
@@ -74,6 +77,7 @@ class ServicesController extends Controller
         {
             $product = Product::find($request->product_id);
             $product->product_name = $request->product_name;
+            $product->product_qty = $request->product_qty;
             $product->price = $request->price;
             $product->member_price = $request->member_price;
             $product->save();
