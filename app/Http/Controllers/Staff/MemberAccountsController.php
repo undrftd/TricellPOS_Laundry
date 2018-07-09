@@ -126,7 +126,7 @@ class MemberAccountsController extends Controller
 
         if($search == "")
         {
-            return Redirect::to('accounts/members');
+            return Redirect::to('/staff/accounts/members');
         }
         else
         {
