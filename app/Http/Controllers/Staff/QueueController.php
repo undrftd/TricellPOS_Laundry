@@ -23,7 +23,9 @@ class QueueController extends Controller
     {
         $now = Carbon::now()->format('Y-m-d');
         
-        $queues = Sale::where(DB::raw("(DATE_FORMAT(transaction_date,'%Y-%m-%d'))"), '=', $now)->orderBy('transaction_date', 'asc')->where('finished_ind', 'N')->paginate(7);
+        $queues = Sale::whereHas('salesdetails',function($query) {
+             $query->where('product_id', '<=', 24);
+        })->where(DB::raw("(DATE_FORMAT(transaction_date,'%Y-%m-%d'))"), '=', $now)->orderBy('transaction_date', 'asc')->where('finished_ind', 'N')->paginate(7);
         $skipped = ($queues->currentPage() * $queues->perPage()) - $queues->perPage();
         return view('staff.queue')->with(['queues' => $queues, 'skipped' => $skipped]);
     }
@@ -39,7 +41,7 @@ class QueueController extends Controller
     {
         $sales_id = $request->sales_id;
         $washers = Sales_details::with('product')->where('sales_id', $sales_id)->where('product_id', '<=', 12)->orderBy('product_id', 'asc')->get();
-        $dryers = Sales_details::with('product')->where('sales_id', $sales_id)->where('product_id', '>', 12)->orderBy('product_id', 'asc')->get();
+        $dryers = Sales_details::with('product')->where('sales_id', $sales_id)->where('product_id', '>', 12)->where('product_id', '<=', 24)->orderBy('product_id', 'asc')->get();
         $expire = Carbon::now()->addMinutes(10)->toDateTimeString();
         
        return view('staff.queuedetails')->with(['washers' => $washers, 'dryers' => $dryers, 'expire'=> $expire ]);
@@ -51,7 +53,7 @@ class QueueController extends Controller
         $profile = DB::table('profile')->select('*')->where('id', 1)->first();
 
         $countrow = 0;
-        $detailrows = Sales_details::where('sales_id', $request->sales_id)->get();
+        $detailrows = Sales_details::where('sales_id', $request->sales_id)->where('product_id', '<=', 24)->get();
         $detailcount = count($detailrows);
 
         if($details->product->switch == 0)

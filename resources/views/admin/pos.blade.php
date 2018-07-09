@@ -1178,7 +1178,7 @@ BILLING
     autocomplete();
   function autocomplete(){
     $('#member_input').autocomplete({
-      minLength:4, 
+      minLength:7, 
       delay: 0,
       selectFirst: true,
       autoFocus: true,

@@ -71,7 +71,7 @@ SERVICES
           <td class="td-center">₱ {{$product->price}}</td>
           <td class="td-center">₱ {{$product->member_price}}</td>
           <td>
-            <button type="button" id="edit-product" class="btn btn-primary edit-btn" data-toggle="modal" data-target=".edit_product" data-id="{{$product->product_id}}" data-productname="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}"><i class="material-icons md-18">mode_edit</i></button>
+            <button type="button" id="edit-product" class="btn btn-primary edit-btn" data-toggle="modal" data-target=".edit_product" data-id="{{$product->product_id}}" data-productname="{{$product->product_name}}" data-price="{{$product->price}}" data-memprice="{{$product->member_price}}" data-prodqty="{{$product->product_qty}}"><i class="material-icons md-18">mode_edit</i></button>
         </tr>
         @endforeach
 
@@ -96,6 +96,7 @@ SERVICES
     <br>
       <input type="hidden" name="product_id" id="product-id-edit">
       <input type="hidden" name="prodname" id="product-prodname-edit">
+      <input type="hidden" name="prodqty" id="product-prodqty-edit">
 		  <div class="form-group row mx-auto">
           <label for="price" class="col-form-label col-md-4 modal-address">Price:</label>
           <div class="col-md-8">
@@ -168,6 +169,7 @@ $('.edit_product').on('hide.bs.modal', function(){
 $(document).on('click', '#edit-product', function() {
   $('#product-id-edit').val($(this).data('id'));    
   $('#product-prodname-edit').val($(this).data('productname')); 
+  $('#product-prodqty-edit').val($(this).data('prodqty'));
   $("#product-price-edit").val($(this).data('price'));
   $("#product-memprice-edit").val($(this).data('memprice'));
 });
@@ -180,6 +182,7 @@ $.ajax({
           '_token': $('input[name=_token]').val(),
           'product_id': $("#product-id-edit").val(),
           'product_name': $("#product-prodname-edit").val(),
+          'product_qty' : $("#product-prodqty-edit").val(),
           'price': $("#product-price-edit").val(),
           'member_price': $("#product-memprice-edit").val(),
         },

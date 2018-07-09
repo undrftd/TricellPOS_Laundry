@@ -29,14 +29,16 @@ class PointofSaleController extends Controller
         $allitems = Product::orderBy('product_name', 'asc')->get();
         $products = Product::orderBy('product_id', 'asc')->simplepaginate(32);
         $vat = DB::table('profile')->select('vat')->where('id', 1)->first();
+        $lowstock = DB::table('profile')->select('low_stock')->where('id', 1)->first();
         $discounts = Discount::all();
-        return view('staff.pos')->with(['products' => $products, 'allitems' => $allitems, 'vat' => $vat, 'discounts' => $discounts]);
+        return view('staff.pos')->with(['products' => $products, 'allitems' => $allitems, 'vat' => $vat,'lowstock' => $lowstock, 'discounts' => $discounts]);
     }
 
     public function buttonload()
     {
         $products = Product::orderBy('product_id', 'asc')->simplepaginate(32);
-        return view('staff.posbuttons')->with(['products' => $products])->render();
+        $lowstock = DB::table('profile')->select('low_stock')->where('id', 1)->first();
+        return view('staff.posbuttons')->with(['products' => $products, 'lowstock' => $lowstock])->render();
     }
 
     public function member_autocomplete(Request $request)

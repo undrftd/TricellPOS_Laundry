@@ -65,15 +65,15 @@ SYSTEM PREFERENCES
                   <p id="error-email-profile" class="error-profile" hidden="hidden"></p>
                 </div>
               </div>
-            </div>
-            <div class="col-md-6">
               <div class="form-group row mx-auto">
-                <label for="card-no" class="col-form-label col-md-4 modal-card">TIN:</label>
-                <div class="col-md-8">
+                <label for="card-no" class="col-form-label col-md-3 modal-card">TIN:</label>
+                <div class="col-md-9">
                   <input type="text" name="tin" value="{{$profile->tin}}" class="form-control modal-card" id="tin-profile">
                   <p id="error-tin-profile" class="error-profile" hidden="hidden"></p>
                 </div>
               </div>
+            </div>
+            <div class="col-md-6">
               <div class="form-group row mx-auto">
                 <label for="card-no" class="col-form-label col-md-4 modal-card">VAT:</label>
                 <div class="col-md-8">
@@ -98,6 +98,13 @@ SYSTEM PREFERENCES
                 <div class="col-md-8">
                   <input type="text" name="dryer_timer" value="{{$profile->dryer_timer}}" class="form-control" id="dryertimer-profile">
                   <p id="error-dryertimer-profile" class="error-profile" hidden="hidden"></p>
+                </div>
+              </div>
+              <div class="form-group row mx-auto">
+                <label for="lowstock" class="col-form-label col-md-4 modal-mobile">Low Stock Indicator</label>
+                <div class="col-md-8">
+                  <input type="text" name="lowstock" value="{{$profile->low_stock}}" class="form-control" id="lowstock-profile">
+                  <p id="error-lowstock-profile" class="error-profile" hidden="hidden"></p>
                 </div>
               </div>
             </div>
@@ -170,6 +177,7 @@ SYSTEM PREFERENCES
             'vat': $("#vat-profile").val(),
             'washertimer': $("#washertimer-profile").val(),
             'dryertimer': $("#dryertimer-profile").val(),
+            'lowstock': $("#lowstock-profile").val(),
           },
     success: function(data) {
       console.log(data);
@@ -270,6 +278,18 @@ SYSTEM PREFERENCES
           {
             $('#error-dryertimer-profile').attr("hidden", true);
             $('#dryertimer-profile').removeAttr('style');
+          }
+
+          if(data.errors.lowstock)
+          {
+            $('#error-lowstock-profile').removeAttr("hidden");
+            $('#error-lowstock-profile').text(data.errors.lowstock);
+            $('#lowstock-profile').css("border", "1px solid #cc0000");
+          }
+          else
+          {
+            $('#error-lowstock-profile').attr("hidden", true);
+            $('#lowstock-profile').removeAttr('style');
           }
       }
       else

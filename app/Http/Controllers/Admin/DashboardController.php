@@ -25,6 +25,8 @@ class DashboardController extends Controller
         $reloadsales = implode($reloadsales);
         $sales = Sale::selectRaw('ROUND(SUM(amount_due),2)')->where('transaction_date', '>', Carbon::now()->subDays(30))->pluck('ROUND(SUM(amount_due),2)')->toArray();
         $sales = implode($sales);
+        $stock_ind = DB::table('profile')->select('low_stock')->where('id', 1)->first();
+        $lowstock = Product::where('product_id', '>', 24)->where('product_qty', '<=', $stock_ind->low_stock)->where('product_qty', '>', 0)->count();
         
 
         //sales for the year
@@ -123,7 +125,7 @@ class DashboardController extends Controller
 
         $topmembers = DB::table('sales')->selectRaw('DISTINCT (sales.member_id), CONCAT(users.firstname, " ", users.lastname) as name, SUM(amount_due) as amount_due')->groupBy('member_id')->join('users', 'sales.member_id', '=', 'users.id')->limit(10)->orderBy('amount_due', 'desc')->get()->toArray();
 
-        return view('admin.dashboard')->with(['newmembers' => $newmembers, 'reloadsales' => $reloadsales, 'sales' => $sales, 'washer_use' => $washer_use, 'dryer_use' => $dryer_use, 'cashpay' => json_encode($cashpay,JSON_NUMERIC_CHECK), 'loadpay' => json_encode($loadpay,JSON_NUMERIC_CHECK),'yearsales' => $yearsales,'salestoday' => $salestoday, 'topmembers' => $topmembers]);
+        return view('admin.dashboard')->with(['newmembers' => $newmembers, 'lowstock' => $lowstock, 'reloadsales' => $reloadsales, 'sales' => $sales, 'washer_use' => $washer_use, 'dryer_use' => $dryer_use, 'cashpay' => json_encode($cashpay,JSON_NUMERIC_CHECK), 'loadpay' => json_encode($loadpay,JSON_NUMERIC_CHECK),'yearsales' => $yearsales,'salestoday' => $salestoday, 'topmembers' => $topmembers]);
     }
 
 }

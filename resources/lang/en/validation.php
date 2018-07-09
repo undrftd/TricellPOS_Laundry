@@ -186,7 +186,8 @@ return [
         'tin' => 'TIN',
         'vat' => 'VAT',
         'washertimer' => 'Washer Timer',
-        'dryertimer' => 'Dryer Timer'
+        'dryertimer' => 'Dryer Timer',
+        'lowstock' => 'Low Stock Indicator'
     ],
 
 ];

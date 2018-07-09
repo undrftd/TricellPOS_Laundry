@@ -21,7 +21,7 @@ DASHBOARD
            <p class="title">New Customers  <span class="last-time"></br>Last 7 days</span></p>
         </div>
         <div class ="col-xs-9 mx-auto">
-           <h1 class="newmember-count">{{$newmembers}}</h1>
+           <h3 class="newmember-count">{{$newmembers}}</h3>
         </div>
        </div>
     </div>
@@ -34,13 +34,13 @@ DASHBOARD
             <p class="title">Reload Sales <span class="last-time"></br>Last 30 days</span></p>
          </div>
          <div class ="col-xs-9 mx-auto">
-            <h1 class="reload-sales">
+            <h3 class="reload-sales">
             @if($reloadsales != '')
               {{ number_format($reloadsales,2) }}
             @else 
               {{ '0.00' }} 
             @endif
-          </h1>
+          </h3>
          </div>
         </div>
       </div>
@@ -53,15 +53,28 @@ DASHBOARD
             <p class="title">Product Sales <span class="last-time"></br>Last 30 days</span></p>
          </div>
          <div class ="col-xs-9 mx-auto">
-            <h1 class="product-sales">
+            <h3 class="product-sales">
               @if($sales != '')
               {{ number_format($sales,2) }}
             @else 
               {{ '0.00' }} 
             @endif
-            </h1>
+            </h3>
          </div>
        </div> 
+      </div>
+      <div class="col m-1" id="new-low" onclick="window.location='{{ url("services/products") }}'">
+        <div class="row">
+          <div class ="col-xs-1"> 
+            <i class="material-icons trending_down">trending_down</i>
+          </div>
+         <div class ="col-xs-2">
+            <p class="title">Low Stock Products <span class="last-time"></br>As of {{\Carbon\Carbon::now()->format('F d')}}</span></p>
+         </div>
+         <div class ="col-xs-9 mx-auto">
+            <h3 class="low-stock">{{$lowstock}} </h3>
+          </div>
+        </div>
       </div>
    </div>
 
