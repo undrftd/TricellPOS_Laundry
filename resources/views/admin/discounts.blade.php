@@ -204,12 +204,12 @@ DISCOUNTS
         </button>
       </div>
       <div class="modal-body">
-        <center>  <p> Are you sure you want to delete the <b><span id="delete-name"></span></b> discount?</p> </center>
+        <center>  <p> Are you sure you want to permanently delete the <b><span id="delete-name"></span></b> discount?</p> </center>
         <span class="discount-id-delete" hidden="hidden"></span>
       </div>
       
       <div class="modal-footer" id="modal-footer-discount-delete">
-        <button type="button" class="btn btn-info btn-savemem-modal" id="destroy-discount">Yes</button>
+        <button type="button" class="btn btn-danger btn-savemem-modal" id="destroy-discount">Yes</button>
         <button type="button" class="btn btn-secondary btn-close-modal" data-dismiss="modal">No</button>
         
       </div>
