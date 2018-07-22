@@ -2,20 +2,20 @@
 <head>
   <title>RECEIPT</title>
   <meta name="viewport" content="width=device-width", initial-scale="1.0">
+  <link href="{{ asset('imports/css/font.css') }}" rel="stylesheet"> 
   <link rel="stylesheet" type="text/css" href="{{ asset('imports/css/receipt.css') }}"/>
-  <link href="https://fonts.googleapis.com/css?family=Oxygen+Mono" rel="stylesheet">
-    <!-- bootstrap -->
 
-    <!-- bootstrap -->
-
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-   <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-         rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+  <link rel="stylesheet" href="{{ asset('imports/css/bootstrap.min.css') }}">
+  <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"> -->
+  <link href="{{ asset('imports/css/materialicon.css') }}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ asset('imports/css/daterangepicker.css') }}" />
+  <link href="{{ asset('imports/css/font.css') }}" rel="stylesheet"> 
+  
+  <script type="text/javascript" src="{{ asset('imports/js/jquery.min.js') }}"></script>
+  <script src="{{ asset('imports/js/jquery1-11-1.min.js') }}"></script>
+  <script src="{{ asset('imports/js/popper.min.js') }}"></script>
+  <script src="{{ asset('imports/js/bootstrap.min.js') }}"></script>
 
   </head>
 
