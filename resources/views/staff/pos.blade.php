@@ -96,7 +96,7 @@ BILLING
             <i class="material-icons" id="faces">faces</i>
             <p id="member-name">&nbsp;<span id="membername"></span></p>
             <i class="material-icons icon-align-right" id="date_range">date_range</i>
-            <p align="right" id="date">{{date('F d, Y')}}</p>
+            <p align="right" id="date">{{date('M d, Y')}}</p>
 
             <i class="material-icons" id="faces">credit_card</i>
             <p id="member-name">&nbsp;<span id="memberspanload"></span></p>
@@ -106,7 +106,7 @@ BILLING
           <div class="row" id="guest">
             <input type="text" class="form-control form-control-sm" onkeypress="return alpha(event)" id="guest_input">
             <i class="material-icons icon-align-right" id="date_range_2">date_range</i>
-            <p id="date_2">{{date('F d, Y')}}</p>
+            <p id="date_2">{{date('M d, Y')}}</p>
           </div>
           
           <div class="row">
@@ -572,6 +572,14 @@ BILLING
         var newqty = $(this).val()
         subtotal = newqty * price;
         
+        whichtr.find($('.itemsubtotal')).text(subtotal.toFixed(2));
+        update_total();
+        compute_discount();
+      }
+      else
+      {
+        subtotal = qty * price;
+
         whichtr.find($('.itemsubtotal')).text(subtotal.toFixed(2));
         update_total();
         compute_discount();
