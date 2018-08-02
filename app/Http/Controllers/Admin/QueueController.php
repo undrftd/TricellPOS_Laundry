@@ -21,8 +21,6 @@ class QueueController extends Controller
 {
     public function index()
     {
-$knownDate = Carbon::create(2018, 8, 4, 12);
-Carbon::setTestNow($knownDate);  
         $now = Carbon::now()->format('Y-m-d');
 
         //reset sales table
