@@ -22,7 +22,28 @@ class QueueController extends Controller
     public function index()
     {
         $now = Carbon::now()->format('Y-m-d');
-        
+
+        //reset sales table
+        $unclosed = Sale::where(DB::raw("(DATE_FORMAT(transaction_date,'%Y-%m-%d'))"), '<', $now)->where('finished_ind', 'N');
+
+        if($unclosed->count() > 0) 
+        {
+            $unclosed->update(['finished_ind' => 'Y']);
+        }
+
+        //reset products table
+        $productreset = Product::where(DB::raw("(DATE_FORMAT(finish_date,'%Y-%m-%d'))"), '<', $now);
+        if($productreset->count() > 0) 
+        {
+            $productreset->update(['switch' => '0', 'used_by' => 0]);
+        }
+
+        //reset salesdetails table
+        $unused = Sales_details::whereHas('sale', function ($query) use ($now) {
+            $query->where(DB::raw("(DATE_FORMAT(transaction_date,'%Y-%m-%d'))"), '<', $now);
+        })->where('product_id', '<=', 24)->where('switch', 1)->update(['switch' => 0]);
+
+
         $queues = Sale::whereHas('salesdetails',function($query) {
              $query->where('product_id', '<=', 24);
         })->where(DB::raw("(DATE_FORMAT(transaction_date,'%Y-%m-%d'))"), '=', $now)->orderBy('transaction_date', 'asc')->where('finished_ind', 'N')->paginate(7);
