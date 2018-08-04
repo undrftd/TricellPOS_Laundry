@@ -108,7 +108,7 @@ class QueueController extends Controller
             $details->product->used_by = 0; 
             $details->switch = 0; 
 
-            if($details->used == $details->used) 
+            if($details->used == $details->quantity) 
             {
                 $details->isUsed = 1;
             }
