@@ -94,6 +94,7 @@ class StaffAccountsController extends Controller
     public function destroy(Request $request)
     {
         $staff = User::find($request->staff_id)->delete();
+        $timesheet = Timesheet::where('user_id', $request->staff_id)->delete();
     }
 
     public function search(Request $request)
