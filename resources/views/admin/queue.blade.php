@@ -128,6 +128,7 @@ power_settings_new
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
       console.log(JSON.stringify(jqXHR));
       console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+      window.location.reload();
     }
   })
 
@@ -165,7 +166,7 @@ power_settings_new
           },
     success: function(data)
     {   
-      if(data.used == data.quantity)
+      if(data.used >= data.quantity)
       {
           if($('#switch' + id).is(':checked'))
           {  
@@ -202,6 +203,7 @@ power_settings_new
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
       console.log(JSON.stringify(jqXHR));
       console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+      window.location.reload();
     }
   })
 
@@ -230,13 +232,10 @@ power_settings_new
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
       console.log(JSON.stringify(jqXHR));
       console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+      window.location.reload();
     }
   })
 
   });
-
-  $(document).ready(function(){
-
-  })
 </script>
 @endsection

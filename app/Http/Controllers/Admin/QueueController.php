@@ -58,10 +58,6 @@ class QueueController extends Controller
 
         if($details->product->switch == 0)
         {
-            //python script
-            $id =  $request->product_id;
-            passthru("sudo python /var/www/html/machine{$id}.py");
-
             $details->product->switch = 1;
             $details->product->used_by = $request->sales_id;
             $details->switch = 1;  
@@ -75,6 +71,10 @@ class QueueController extends Controller
             {
                 $details->product->finish_date = Carbon::now()->addMinutes($profile->dryer_timer);
             }
+            
+            //python script
+            $id =  $request->product_id;
+            passthru("sudo python /var/www/html/machine{$id}.py");
         }
         else if($details->product->switch == 1)
         {
@@ -82,14 +82,14 @@ class QueueController extends Controller
             $details->product->used_by = 0; 
             $details->switch = 0; 
 
-            if($details->used == $details->quantity) 
+            if($details->used >= $details->quantity) 
             {
                 $details->isUsed = 1;
             }
 
             foreach($detailrows as $row)
             {
-                if($row->quantity == $row->used)
+                if($row->quantity <= $row->used)
                 {
                     $countrow++;
                 }
