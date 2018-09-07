@@ -150,6 +150,10 @@ power_settings_new
   $(document).on('click', '.switch__toggle', function() {
     $('.switch__toggle').attr('disabled', true);
 
+    $('.switch-modal').on('hide.bs.modal', function(e){
+      e.preventDefault();
+    });
+
     var switches = $('.service').find($('[data-id="'+ $(this).attr('data-id') +'"]'));
     var attr = $(this).attr('checked');
     var id = $(this).attr('data-id');
@@ -168,37 +172,30 @@ power_settings_new
     {   
       if(data.used >= data.quantity)
       {
-          if($('#switch' + id).is(':checked'))
-          {  
-            // setTimeout(function() {
-            //   $('input[type=checkbox]').not('[data-isUsed="1"]').removeAttr('disabled');
-            // }, 2000);
-            $('input[type=checkbox]').not('[data-isUsed="1"]').removeAttr('disabled');
-          }
-          else
-          {  
-            $('#switch' + id).attr('data-isUsed', data.isUsed);
-            $('#switch' + id).attr('disabled', true);
+        if($('#switch' + id).is(':checked'))
+        {  
+          $('input[type=checkbox]').not('[data-isUsed="1"]').removeAttr('disabled');
+        }
+        else
+        {  
+          $('#switch' + id).attr('data-isUsed', data.isUsed);
+          $('#switch' + id).attr('disabled', true);
 
-            // setTimeout(function() {
-            //   $('input[type=checkbox]').not('[data-isUsed="1"]').not('#switch' + id).removeAttr('disabled');
-            // }, 2000);
-            $('input[type=checkbox]').not('[data-isUsed="1"]').not('#switch' + id).removeAttr('disabled');
-          } 
+          $('input[type=checkbox]').not('[data-isUsed="1"]').not('#switch' + id).removeAttr('disabled');
+        } 
 
-          if((data.countrow == data.detailcount) && (data.sumswitch == 0))
-          {
-            localStorage.setItem("move","success");
-            window.location.reload();
-          } 
+        if((data.countrow == data.detailcount) && (data.sumswitch == 0))
+        {
+          localStorage.setItem("move","success");
+          window.location.reload();
+        } 
       }
       else
       {
-        // setTimeout(function() {
-        //   $('input[type=checkbox]').not('[data-isUsed="1"]').removeAttr('disabled');
-        // }, 2000);
         $('input[type=checkbox]').not('[data-isUsed="1"]').removeAttr('disabled');
       }
+
+      $('.switch-modal').off('hide.bs.modal');
     },
     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
       console.log(JSON.stringify(jqXHR));

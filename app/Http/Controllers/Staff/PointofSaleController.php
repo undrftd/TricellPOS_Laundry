@@ -94,41 +94,6 @@ class PointofSaleController extends Controller
         }
     }
 
-    public function member_cashpayment(Request $request)
-    {
-        $sale = new Sale;
-        $sale->member_id = $request->member_id;
-        $sale->guest_id = 0;
-        $sale->discount_id = $request->discount_id;
-        $sale->amount_due = $request->amount_due;
-        $sale->amount_paid = $request->amount_paid;
-        $sale->change_amount = $request->change_amount;
-        $sale->payment_mode = 'cash';
-        $sale->vat = $request->vat;
-        $sale->staff_name = Auth::user()->id;   
-        $sale->save();
-
-        $itemsBought = $request->itemsbought;
-        $count = count($itemsBought);
-        
-        for($i= 0; $i < $count; $i++){
-            $y=0;
-            $sales_details[] = [
-                'sales_id' => $sale->id,
-                'product_id' => $itemsBought[$i][$y],
-                'quantity' => $itemsBought[$i][++$y],
-                'subtotal' => $itemsBought[$i][++$y] * $itemsBought[$i][--$y],
-                ];
-            }
-        Sales_details::insert($sales_details);
-
-        for($i= 0; $i < $count; $i++){
-            $y=0;
-            $product = Product::find($itemsBought[$i][$y]);
-            $product->save();
-        }
-    }
-
     public function member_loadpayment(Request $request)
     {
         $sale = new Sale;
@@ -164,6 +129,7 @@ class PointofSaleController extends Controller
         for($i= 0; $i < $count; $i++){
             $y=0;
             $product = Product::find($itemsBought[$i][$y]);
+
             if($product->product_id > 24)
             {
                 $product->product_qty =  $product->product_qty - $itemsBought[$i][++$y];   
