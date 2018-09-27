@@ -809,6 +809,7 @@ BILLING
   });
 
   $(document).on('click', '#payload', function(){
+    $(this).attr('disabled', true);
     var itemsBought = [];
     $("#display_table .itemrow").each(function() { 
         var arrayOfThisRow = [];
@@ -1273,6 +1274,7 @@ BILLING
   }
 
   $(document).on('click', '#paysale', function(){
+    $(this).attr('disabled', true);
     var itemsBought = [];
     
     $("#display_table .itemrow").each(function() { 
